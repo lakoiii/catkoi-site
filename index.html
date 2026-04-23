@@ -3,73 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>catkoi</title>
+  <title>CatKoi SMP</title>
+  <meta name="description" content="CatKoi SMP — live server status, player list, BlueMap, modpack links, and community info." />
   <style>
     :root {
-      --bg: #0b1020;
-      --panel: rgba(20, 28, 52, 0.72);
-      --panel-strong: rgba(17, 24, 39, 0.9);
-      --text: #eef2ff;
-      --muted: #b8c0e0;
+      --bg-1: #070b14;
+      --bg-2: #0b1020;
+      --panel: rgba(13, 18, 34, 0.78);
+      --panel-strong: rgba(12, 17, 31, 0.95);
       --line: rgba(255,255,255,0.09);
-      --cyan: #7dd3fc;
-      --pink: #f9a8d4;
-      --violet: #c4b5fd;
-      --gold: #fde68a;
-      --shadow: 0 24px 60px rgba(0,0,0,0.35);
-      --radius: 24px;
-      --radius-sm: 18px;
-      --max: 1180px;
+      --line-strong: rgba(255,255,255,0.14);
+      --text: #f8fbff;
+      --muted: #b9c4e3;
+      --cyan: #74d7ff;
+      --pink: #ff93d1;
+      --violet: #c5b2ff;
+      --green: #4ade80;
+      --red: #fb7185;
+      --yellow: #fde68a;
+      --shadow: 0 25px 70px rgba(0,0,0,0.45);
+      --radius: 28px;
+      --radius-md: 22px;
+      --radius-sm: 16px;
+      --max: 1240px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(125,211,252,0.14), transparent 28%),
-        radial-gradient(circle at top right, rgba(249,168,212,0.14), transparent 24%),
-        radial-gradient(circle at bottom center, rgba(196,181,253,0.15), transparent 32%),
-        linear-gradient(180deg, #0a1020 0%, #090d19 100%);
+        radial-gradient(circle at top left, rgba(116,215,255,0.16), transparent 24%),
+        radial-gradient(circle at top right, rgba(255,147,209,0.18), transparent 24%),
+        radial-gradient(circle at 50% 120%, rgba(197,178,255,0.12), transparent 34%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
       min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      width: 40vw;
+      height: 40vw;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(60px);
+      opacity: 0.18;
+      z-index: 0;
+    }
+
+    body::before {
+      left: -10vw;
+      top: 10vh;
+      background: #4cc9f0;
+    }
+
+    body::after {
+      right: -10vw;
+      top: 0;
+      background: #f72585;
     }
 
     .topbar {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(8, 12, 24, 0.65);
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 16, 0.66);
       border-bottom: 1px solid var(--line);
     }
 
     .nav {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 16px 22px;
+      padding: 14px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 14px;
     }
 
-    .brand-badge {
-      width: 40px;
-      height: 40px;
+    .brand-mark {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, rgba(125,211,252,0.25), rgba(249,168,212,0.25));
+      background: linear-gradient(135deg, rgba(116,215,255,0.22), rgba(255,147,209,0.25));
       border: 1px solid rgba(255,255,255,0.14);
       box-shadow: var(--shadow);
       font-size: 18px;
@@ -83,25 +118,41 @@
     }
 
     .nav-links a {
-      color: var(--muted);
       text-decoration: none;
+      color: var(--muted);
       font-size: 14px;
+      font-weight: 700;
     }
 
     .nav-links a:hover { color: var(--text); }
 
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #07111f;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      font-weight: 900;
+      padding: 12px 16px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
     .page {
+      position: relative;
+      z-index: 1;
       max-width: var(--max);
       margin: 0 auto;
-      padding: 34px 22px 80px;
+      padding: 26px 22px 80px;
     }
 
     .hero {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
+      gap: 22px;
       align-items: stretch;
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
     .card {
@@ -109,45 +160,48 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-    }
-
-    .hero-main {
-      padding: 38px;
       position: relative;
       overflow: hidden;
     }
 
-    .hero-main::after {
+    .card::before {
       content: "";
       position: absolute;
-      inset: auto -80px -100px auto;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(125,211,252,0.18), transparent 64%);
+      inset: 0;
       pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 18%);
+    }
+
+    .hero-main {
+      padding: 42px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .eyebrow {
       display: inline-flex;
-      gap: 10px;
       align-items: center;
+      gap: 10px;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
       color: var(--cyan);
       font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+      font-weight: 800;
+      width: fit-content;
       margin-bottom: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(42px, 8vw, 76px);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
+      font-size: clamp(46px, 8vw, 88px);
+      line-height: 0.92;
+      letter-spacing: -0.055em;
     }
 
     .gradient {
@@ -157,66 +211,80 @@
       color: transparent;
     }
 
-    .hero p {
+    .hero-copy {
       color: var(--muted);
       font-size: 18px;
-      line-height: 1.7;
-      margin: 18px 0 0;
-      max-width: 58ch;
+      line-height: 1.75;
+      max-width: 60ch;
+      margin: 20px 0 0;
     }
 
     .actions {
       display: flex;
-      flex-wrap: wrap;
       gap: 14px;
+      flex-wrap: wrap;
       margin-top: 28px;
     }
 
     .btn {
       appearance: none;
       border: 0;
-      border-radius: 16px;
-      padding: 14px 18px;
-      font-weight: 800;
-      font-size: 15px;
       text-decoration: none;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 900;
       display: inline-flex;
       align-items: center;
       gap: 10px;
       cursor: pointer;
-      transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease;
+      transition: transform 0.16s ease, opacity 0.16s ease;
     }
 
     .btn:hover { transform: translateY(-1px); }
     .btn-primary {
-      color: #09111f;
+      color: #08111f;
       background: linear-gradient(90deg, var(--cyan), var(--pink));
     }
-
     .btn-secondary {
       color: var(--text);
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.11);
+    }
+
+    .hero-subnote {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: rgba(255,255,255,0.06);
+      color: var(--yellow);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 3px 8px;
     }
 
     .hero-side {
-      padding: 26px;
+      padding: 22px;
       display: grid;
       gap: 14px;
       align-content: start;
     }
 
-    .stat-grid {
+    .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
     }
 
     .mini-card {
-      padding: 18px;
-      border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 18px;
     }
 
     .mini-label {
@@ -225,19 +293,41 @@
       letter-spacing: 0.08em;
       color: var(--muted);
       margin-bottom: 8px;
+      font-weight: 800;
     }
 
     .mini-value {
-      font-size: 24px;
-      font-weight: 800;
+      font-size: clamp(22px, 4vw, 28px);
+      font-weight: 900;
       line-height: 1.15;
+      word-break: break-word;
     }
 
     .mini-sub {
-      font-size: 13px;
       color: var(--muted);
+      font-size: 13px;
       margin-top: 8px;
-      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    .status-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 5px rgba(251,113,133,0.12);
+      flex: 0 0 auto;
+    }
+
+    .status-dot.online {
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(74,222,128,0.12);
     }
 
     .section {
@@ -253,150 +343,199 @@
       justify-content: space-between;
       align-items: end;
       gap: 16px;
-      margin-bottom: 18px;
       flex-wrap: wrap;
+      margin-bottom: 18px;
     }
 
     h2 {
       margin: 0;
-      font-size: clamp(26px, 4vw, 36px);
-      letter-spacing: -0.03em;
+      font-size: clamp(28px, 4vw, 38px);
+      letter-spacing: -0.04em;
     }
 
     .section-copy {
       color: var(--muted);
-      max-width: 70ch;
       line-height: 1.7;
+      max-width: 70ch;
+      margin-top: 8px;
     }
 
-    .join-grid {
+    .join-grid,
+    .community-grid,
+    .about-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       margin-top: 18px;
     }
 
-    .join-box {
-      padding: 18px;
-      border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.04);
+    .feature-box {
+      background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 20px;
     }
 
-    .join-box strong {
+    .feature-box strong {
       display: block;
       font-size: 16px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 700;
+    .feature-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
     .map-wrap {
       border-radius: 22px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.08);
-      background: #060b13;
+      background: #050814;
       margin-top: 18px;
     }
 
-    iframe {
-      display: block;
+    iframe.map {
       width: 100%;
-      height: 70vh;
-      min-height: 520px;
+      height: 72vh;
+      min-height: 560px;
       border: 0;
+      display: block;
     }
 
-    .two-col {
+    .status-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 18px;
       margin-top: 18px;
     }
 
-    .rules {
-      display: grid;
-      gap: 12px;
-    }
-
-    .rule {
-      padding: 16px 18px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.04);
+    .chart-box,
+    .players-box {
+      background: rgba(255,255,255,0.045);
       border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      line-height: 1.65;
+      border-radius: var(--radius-md);
+      padding: 20px;
     }
 
-    .rule strong {
-      color: var(--text);
+    .chart-title,
+    .players-title {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    #uptimeChart {
+      width: 100%;
+      height: 220px;
+      display: block;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .chart-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .players-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .player-item,
+    .empty-player {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .player-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(116,215,255,0.22), rgba(255,147,209,0.24));
+      font-size: 13px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .player-name {
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .player-tag {
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .about-copy {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+      max-width: 76ch;
+      margin: 8px 0 0;
     }
 
     .footer {
       text-align: center;
       color: var(--muted);
+      padding: 30px 0 10px;
       font-size: 14px;
-      margin-top: 34px;
-      padding-bottom: 12px;
     }
 
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #f87171;
-      display: inline-block;
-      box-shadow: 0 0 0 5px rgba(248,113,113,0.12);
-    }
-
-    .status-dot.online {
-      background: #4ade80;
-      box-shadow: 0 0 0 5px rgba(74,222,128,0.12);
-    }
-
-    .muted-note {
+    .tiny {
       font-size: 12px;
       color: var(--muted);
-      margin-top: 8px;
+      line-height: 1.55;
     }
 
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      background: rgba(255,255,255,0.06);
-      padding: 3px 7px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--gold);
-    }
-
-    @media (max-width: 980px) {
+    @media (max-width: 1050px) {
       .hero,
-      .two-col,
-      .join-grid {
+      .status-layout,
+      .join-grid,
+      .community-grid,
+      .about-grid {
         grid-template-columns: 1fr;
       }
-      .stat-grid { grid-template-columns: 1fr 1fr; }
-      iframe { height: 62vh; min-height: 420px; }
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 720px) {
       .page { padding-inline: 14px; }
       .nav { padding-inline: 14px; }
       .hero-main, .hero-side, .section-card { padding: 20px; }
-      .stat-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 46px; }
-      iframe { height: 56vh; min-height: 360px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      iframe.map { min-height: 400px; height: 58vh; }
+      h1 { font-size: 48px; }
     }
   </style>
 </head>
@@ -404,83 +543,84 @@
   <div class="topbar">
     <div class="nav">
       <div class="brand">
-        <div class="brand-badge">🐟</div>
-        <div>catkoi</div>
+        <div class="brand-mark">🐟</div>
+        <div>CatKoi SMP</div>
       </div>
       <div class="nav-links">
-        <a href="#join">Join</a>
+        <a href="#home">Home</a>
+        <a href="#status">Status</a>
         <a href="#map">Map</a>
+        <a href="#about">About</a>
         <a href="#community">Community</a>
-        <a href="#rules">Rules</a>
       </div>
+      <a class="nav-cta" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Join Discord</a>
     </div>
   </div>
 
   <main class="page">
-    <section class="hero">
+    <section id="home" class="hero">
       <div class="card hero-main">
-        <div class="eyebrow">catkoi survival network</div>
-        <h1><span class="gradient">catkoi</span><br />a cozy modded world</h1>
-        <p>
-          A home for Kat, Louie, and friends. Explore the world, build ridiculous factories,
-          and keep an eye on the server through a clean live map and status panel.
+        <div class="eyebrow">modded survival · live map · growing community</div>
+        <h1><span class="gradient">CatKoi</span><br />build, explore, and stay awhile</h1>
+        <p class="hero-copy">
+          A cozy modded Minecraft server that started as one setup for a girlfriend and turned into a little world we want to keep growing.
+          If you want a chill place to build, mess around with Create, and actually know the people you play with, this is the spot.
         </p>
         <div class="actions">
           <button class="btn btn-primary" id="copyIpBtn">Copy Server IP</button>
           <a class="btn btn-secondary" href="#map">Open Live Map</a>
-          <a class="btn btn-secondary" href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
+          <a class="btn btn-secondary" href="https://www.curseforge.com/minecraft/modpacks/create-essentials-better-experience-with-create-6-0-and-create-addons" target="_blank" rel="noreferrer">Get the Modpack</a>
+          <a class="btn btn-secondary" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Discord</a>
         </div>
-        <div class="muted-note">Server IP: <code>play.catkoi.net</code></div>
+        <div class="hero-subnote">Join with <code>play.catkoi.net</code> · Live map at <code>map.catkoi.net</code></div>
       </div>
 
       <div class="card hero-side">
-        <div class="stat-grid">
+        <div class="stats-grid">
           <div class="mini-card">
             <div class="mini-label">Server Status</div>
-            <div class="mini-value"><span id="statusDot" class="status-dot"></span> <span id="statusText">Checking...</span></div>
-            <div class="mini-sub" id="statusSub">Connecting to play.catkoi.net</div>
+            <div class="mini-value status-line"><span id="statusDot" class="status-dot"></span><span id="statusText">Checking…</span></div>
+            <div class="mini-sub" id="statusSub">Trying play.catkoi.net</div>
           </div>
           <div class="mini-card">
             <div class="mini-label">Players Online</div>
             <div class="mini-value" id="playerCount">--</div>
-            <div class="mini-sub" id="playerNames">Waiting for server data</div>
+            <div class="mini-sub" id="versionText">Waiting for version info</div>
           </div>
           <div class="mini-card">
-            <div class="mini-label">Map Address</div>
-            <div class="mini-value">map.catkoi.net</div>
-            <div class="mini-sub">Clean public BlueMap URL</div>
+            <div class="mini-label">Server IP</div>
+            <div class="mini-value">play.catkoi.net</div>
+            <div class="mini-sub">Default Java port · no extra port needed</div>
           </div>
           <div class="mini-card">
             <div class="mini-label">Modpack</div>
             <div class="mini-value">Create Essentials</div>
-            <div class="mini-sub">Create 6, quality-of-life addons, and chill survival</div>
+            <div class="mini-sub">Linked below so everyone can grab the exact pack</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="join" class="section">
+    <section id="status" class="section">
       <div class="card section-card">
         <div class="section-head">
           <div>
-            <h2>Join the server</h2>
-            <div class="section-copy">Everything your friends need at a glance, with the exact addresses and quick-start info.</div>
+            <h2>Live server status</h2>
+            <div class="section-copy">This panel checks the server live, shows who is online, and keeps a simple uptime history in your browser so visitors can quickly tell whether the server has been stable.</div>
           </div>
-          <span class="pill">Java Edition · NeoForge · 1.21.1</span>
         </div>
 
-        <div class="join-grid">
-          <div class="join-box">
-            <strong>Server address</strong>
-            <code>play.catkoi.net</code>
+        <div class="status-layout">
+          <div class="chart-box">
+            <div class="chart-title">Uptime history</div>
+            <canvas id="uptimeChart" width="800" height="220"></canvas>
+            <div class="chart-note">This graph updates every 30 seconds and stores the latest checks locally in the browser. Green means the server responded. Pink means it was unreachable.</div>
           </div>
-          <div class="join-box">
-            <strong>Map address</strong>
-            <code>map.catkoi.net</code>
-          </div>
-          <div class="join-box">
-            <strong>Modpack</strong>
-            <span>Use the same client pack version as the server.</span>
+          <div class="players-box">
+            <div class="players-title">Online players</div>
+            <div id="playersList" class="players-list">
+              <div class="empty-player">Checking player list…</div>
+            </div>
           </div>
         </div>
       </div>
@@ -490,14 +630,48 @@
       <div class="card section-card">
         <div class="section-head">
           <div>
-            <h2>Live world map</h2>
-            <div class="section-copy">BlueMap embedded directly into the site so people can check spawn, bases, and explored terrain without leaving catkoi.net.</div>
+            <h2>Live BlueMap</h2>
+            <div class="section-copy">The world map is embedded directly into the site so people can check explored areas, orient themselves, and peek at the world before they hop in.</div>
           </div>
-          <a class="btn btn-secondary" href="https://map.catkoi.net" target="_blank" rel="noreferrer">Open map in new tab</a>
+          <a class="btn btn-secondary" href="https://map.catkoi.net" target="_blank" rel="noreferrer">Open full map</a>
+        </div>
+        <div class="map-wrap">
+          <iframe class="map" src="https://map.catkoi.net" title="CatKoi BlueMap"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="card section-card">
+        <div class="section-head">
+          <div>
+            <h2>About CatKoi</h2>
+            <div class="section-copy">A small server with a personal start that turned into a community project.</div>
+          </div>
         </div>
 
-        <div class="map-wrap">
-          <iframe src="https://map.catkoi.net" title="catkoi BlueMap"></iframe>
+        <p class="about-copy">
+          CatKoi started with one simple idea: setting up a modded server for my girlfriend so we could have our own world to play in together.
+          What began as a private little project quickly turned into something we wanted to share with more people — a relaxed place where friends could build, explore, and actually enjoy the game together.
+        </p>
+        <p class="about-copy">
+          Now the goal is to grow that into a real community. Not a giant chaotic network, but a server full of people who want to hang out, build cool stuff, help each other, and make the world feel alive.
+          If that sounds like your kind of server, you’re exactly who we want here.
+        </p>
+
+        <div class="about-grid">
+          <div class="feature-box">
+            <strong>How it started</strong>
+            <p>One setup, one world, and a plan to make something fun and personal instead of just joining another random server.</p>
+          </div>
+          <div class="feature-box">
+            <strong>What it is now</strong>
+            <p>A modded Create-focused SMP with a live map, a growing Discord, and a bunch of room for more people to leave their mark.</p>
+          </div>
+          <div class="feature-box">
+            <strong>What we want</strong>
+            <p>A chill community of players who want to stick around, build big things, and make the server feel like home.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -506,53 +680,44 @@
       <div class="card section-card">
         <div class="section-head">
           <div>
-            <h2>Community</h2>
-            <div class="section-copy">Use this section for your Discord invite, announcements, patch notes, and modpack guide once you and your friend polish the server branding.</div>
+            <h2>Community links</h2>
+            <div class="section-copy">Everything people need to actually join and get set up properly.</div>
           </div>
         </div>
 
-        <div class="two-col">
-          <div class="mini-card">
-            <div class="mini-label">Discord</div>
-            <div class="mini-value">Your server goes here</div>
-            <div class="mini-sub">Replace the Discord button and this card with your actual invite link once it’s ready.</div>
+        <div class="community-grid">
+          <div class="feature-box">
+            <strong>Discord</strong>
+            <p>Join the server, get updates, ask questions, and see what everyone’s building.</p>
+            <div style="margin-top:14px;"><a class="btn btn-primary" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Open Discord</a></div>
           </div>
-          <div class="mini-card">
-            <div class="mini-label">Guides</div>
-            <div class="mini-value">Starter tips, commands, and setup</div>
-            <div class="mini-sub">You can add a dedicated guide page later or plug in your Discord bot help commands here.</div>
+          <div class="feature-box">
+            <strong>Modpack</strong>
+            <p>Grab the exact pack the server uses so you can connect without version headaches.</p>
+            <div style="margin-top:14px;"><a class="btn btn-secondary" href="https://www.curseforge.com/minecraft/modpacks/create-essentials-better-experience-with-create-6-0-and-create-addons" target="_blank" rel="noreferrer">Open modpack page</a></div>
+          </div>
+          <div class="feature-box">
+            <strong>Quick join</strong>
+            <p>Use the address below in Minecraft Java Edition.</p>
+            <div style="margin-top:14px;"><code>play.catkoi.net</code></div>
+            <div class="tiny" style="margin-top:12px;">NeoForge · modded survival · Java Edition</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="rules" class="section">
-      <div class="card section-card">
-        <div class="section-head">
-          <div>
-            <h2>Rules and vibe</h2>
-            <div class="section-copy">Keep it lightweight and friendly. This section is intentionally simple so you can swap in your own text later.</div>
-          </div>
-        </div>
-
-        <div class="rules">
-          <div class="rule"><strong>Respect builds.</strong> Don’t grief, don’t steal, and don’t wreck someone else’s progress for a joke.</div>
-          <div class="rule"><strong>Use the same modpack version.</strong> If the server updates, make sure everyone updates too.</div>
-          <div class="rule"><strong>Keep the server cozy.</strong> Invite friends, bring a +1, and don’t turn the place into a warzone unless everyone wants that.</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">catkoi.net · made for Kat, Louie, and friends</div>
+    <div class="footer">CatKoi SMP · built for Kat, Louie, and the community growing around them</div>
   </main>
 
   <script>
     const statusText = document.getElementById('statusText');
     const statusSub = document.getElementById('statusSub');
     const playerCount = document.getElementById('playerCount');
-    const playerNames = document.getElementById('playerNames');
+    const versionText = document.getElementById('versionText');
+    const playersList = document.getElementById('playersList');
     const statusDot = document.getElementById('statusDot');
     const copyIpBtn = document.getElementById('copyIpBtn');
+    const STORAGE_KEY = 'catkoi_uptime_history';
 
     copyIpBtn.addEventListener('click', async () => {
       try {
@@ -565,40 +730,130 @@
       }
     });
 
-    async function loadStatus() {
+    function readHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function saveHistory(items) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.slice(-40)));
+    }
+
+    function addHistoryPoint(online) {
+      const history = readHistory();
+      history.push({ t: Date.now(), online: !!online });
+      saveHistory(history);
+      drawChart();
+    }
+
+    function drawChart() {
+      const canvas = document.getElementById('uptimeChart');
+      const ctx = canvas.getContext('2d');
+      const history = readHistory();
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = 'rgba(255,255,255,0.02)';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1;
+      for (let i = 1; i <= 4; i++) {
+        const y = (h / 5) * i;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      if (!history.length) {
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.font = '14px Inter, sans-serif';
+        ctx.fillText('No status checks yet', 20, 30);
+        return;
+      }
+
+      const step = Math.max(12, w / Math.max(history.length, 1));
+      history.forEach((point, i) => {
+        const x = i * step + 10;
+        const barW = Math.max(8, step - 6);
+        const y = point.online ? h * 0.2 : h * 0.65;
+        const barH = point.online ? h * 0.6 : h * 0.15;
+        ctx.fillStyle = point.online ? 'rgba(74,222,128,0.9)' : 'rgba(251,113,133,0.9)';
+        ctx.fillRect(x, y, barW, barH);
+      });
+
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.font = '12px Inter, sans-serif';
+      ctx.fillText('older', 16, h - 10);
+      ctx.fillText('newer', w - 48, h - 10);
+    }
+
+    function renderPlayers(names) {
+      if (!names || !names.length) {
+        playersList.innerHTML = '<div class="empty-player">Nobody online right now</div>';
+        return;
+      }
+
+      playersList.innerHTML = names.map((name, index) => {
+        const initial = String(name || '?').trim().charAt(0).toUpperCase();
+        return `
+          <div class="player-item">
+            <div class="player-left">
+              <div class="avatar">${initial}</div>
+              <div class="player-name">${name}</div>
+            </div>
+            <div class="player-tag">Online</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function getServerStatus() {
       try {
         const res = await fetch('https://api.mcsrvstat.us/3/play.catkoi.net');
         const data = await res.json();
 
         if (data && data.online) {
           statusText.textContent = 'Online';
-          statusSub.textContent = `Version: ${data.version || 'Unknown'} · ${data.hostname || 'play.catkoi.net'}`;
+          statusSub.textContent = `Server is live at ${data.hostname || 'play.catkoi.net'}`;
           statusDot.classList.add('online');
 
           const online = data.players?.online ?? 0;
           const max = data.players?.max ?? '?';
           playerCount.textContent = `${online}/${max}`;
+          versionText.textContent = `Version: ${data.version || 'Unknown'}`;
 
-          const names = data.players?.list?.slice(0, 8) || [];
-          playerNames.textContent = names.length ? names.join(', ') : 'No player names available right now';
+          const list = data.players?.list || [];
+          renderPlayers(list.slice(0, 12));
+          addHistoryPoint(true);
         } else {
           statusText.textContent = 'Offline';
-          statusSub.textContent = 'Server is not responding right now';
-          playerCount.textContent = '0';
-          playerNames.textContent = 'Nobody online';
+          statusSub.textContent = 'The server is not responding right now';
           statusDot.classList.remove('online');
+          playerCount.textContent = '0';
+          versionText.textContent = 'Version unavailable';
+          renderPlayers([]);
+          addHistoryPoint(false);
         }
-      } catch (err) {
+      } catch {
         statusText.textContent = 'Unknown';
-        statusSub.textContent = 'Could not load live status';
-        playerCount.textContent = '--';
-        playerNames.textContent = 'Status API unavailable';
+        statusSub.textContent = 'Could not reach the status API';
         statusDot.classList.remove('online');
+        playerCount.textContent = '--';
+        versionText.textContent = 'Status unavailable';
+        playersList.innerHTML = '<div class="empty-player">Could not load player list</div>';
+        addHistoryPoint(false);
       }
     }
 
-    loadStatus();
-    setInterval(loadStatus, 30000);
+    drawChart();
+    getServerStatus();
+    setInterval(getServerStatus, 30000);
   </script>
 </body>
 </html>
