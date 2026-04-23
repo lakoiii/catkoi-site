@@ -12,7 +12,6 @@
       --panel: rgba(13, 18, 34, 0.78);
       --panel-strong: rgba(12, 17, 31, 0.95);
       --line: rgba(255,255,255,0.09);
-      --line-strong: rgba(255,255,255,0.14);
       --text: #f8fbff;
       --muted: #b9c4e3;
       --cyan: #74d7ff;
@@ -470,12 +469,20 @@
       width: 28px;
       height: 28px;
       border-radius: 8px;
+      overflow: hidden;
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, rgba(116,215,255,0.22), rgba(255,147,209,0.24));
       font-size: 13px;
       font-weight: 900;
       flex: 0 0 auto;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      image-rendering: pixelated;
     }
 
     .player-name {
@@ -793,19 +800,33 @@
       ctx.fillText('newer', w - 48, h - 10);
     }
 
-    function renderPlayers(names) {
-      if (!names || !names.length) {
+    function getPlayerName(player) {
+      if (typeof player === 'string') return player;
+      if (player && typeof player === 'object') {
+        return player.name || player.username || player.id || 'Unknown player';
+      }
+      return 'Unknown player';
+    }
+
+    function renderPlayers(players) {
+      if (!players || !players.length) {
         playersList.innerHTML = '<div class="empty-player">Nobody online right now</div>';
         return;
       }
 
-      playersList.innerHTML = names.map((name, index) => {
-        const initial = String(name || '?').trim().charAt(0).toUpperCase();
+      playersList.innerHTML = players.slice(0, 12).map((player) => {
+        const name = getPlayerName(player);
+        const safeName = String(name).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const initial = safeName.trim().charAt(0).toUpperCase() || '?';
+        const avatarUrl = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/32`;
+
         return `
           <div class="player-item">
             <div class="player-left">
-              <div class="avatar">${initial}</div>
-              <div class="player-name">${name}</div>
+              <div class="avatar">
+                <img src="${avatarUrl}" alt="${safeName}" onerror="this.remove(); this.parentNode.textContent='${initial}'">
+              </div>
+              <div class="player-name">${safeName}</div>
             </div>
             <div class="player-tag">Online</div>
           </div>
@@ -828,8 +849,8 @@
           playerCount.textContent = `${online}/${max}`;
           versionText.textContent = `Version: ${data.version || 'Unknown'}`;
 
-          const list = data.players?.list || [];
-          renderPlayers(list.slice(0, 12));
+          const list = Array.isArray(data.players?.list) ? data.players.list : [];
+          renderPlayers(list);
           addHistoryPoint(true);
         } else {
           statusText.textContent = 'Offline';
