@@ -291,6 +291,19 @@ h1 {
   padding:10px 12px;
 }
 
+.player-head {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  margin-right: 10px;
+}
+
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .map-wrap {
   overflow:hidden;
   border-radius:24px;
@@ -514,9 +527,14 @@ function renderOnlinePlayers(list) {
   }
 
   onlinePlayers.innerHTML = list.map(name => {
+    const head = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/64`;
+
     return `
       <div class="online-player">
-        <div><b>${safeText(name)}</b></div>
+        <div class="player-left">
+          <img class="player-head" src="${head}" alt="${safeText(name)} head">
+          <b>${safeText(name)}</b>
+        </div>
         <div class="tag online-tag">Online</div>
       </div>
     `;
