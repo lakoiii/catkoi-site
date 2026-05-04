@@ -4,83 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CatKoi SMP</title>
-  <meta name="description" content="CatKoi SMP — live server status, player list, BlueMap, modpack links, and community info." />
+  <meta name="description" content="CatKoi SMP — a cozy Create-based multiplayer Minecraft server with live status, map, downloads, and member roster." />
   <style>
     :root {
-      --bg-1: #070b14;
-      --bg-2: #0b1020;
-      --panel: rgba(13, 18, 34, 0.78);
-      --panel-strong: rgba(12, 17, 31, 0.95);
-      --line: rgba(255,255,255,0.09);
-      --text: #f8fbff;
-      --muted: #b9c4e3;
-      --cyan: #74d7ff;
-      --pink: #ff93d1;
-      --violet: #c5b2ff;
-      --green: #4ade80;
-      --red: #fb7185;
-      --yellow: #fde68a;
-      --shadow: 0 25px 70px rgba(0,0,0,0.45);
-      --radius: 28px;
-      --radius-md: 22px;
-      --radius-sm: 16px;
-      --max: 1240px;
+      --cream: #fff7e8;
+      --paper: rgba(255, 250, 241, 0.86);
+      --paper-solid: #fffaf1;
+      --latte: #f2dcc0;
+      --mocha: #5f4636;
+      --cocoa: #2f211b;
+      --rose: #f4a7b9;
+      --rose-dark: #d96d8a;
+      --mint: #a8d8c0;
+      --sky: #a9cfe7;
+      --honey: #f7c86a;
+      --green: #72b88b;
+      --red: #d97878;
+      --muted: #7c6658;
+      --line: rgba(95, 70, 54, 0.16);
+      --shadow: 0 22px 70px rgba(72, 48, 32, 0.16);
+      --soft-shadow: 0 12px 32px rgba(72, 48, 32, 0.10);
+      --radius: 30px;
+      --max: 1180px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      color: var(--text);
+      color: var(--cocoa);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(116,215,255,0.16), transparent 24%),
-        radial-gradient(circle at top right, rgba(255,147,209,0.18), transparent 24%),
-        radial-gradient(circle at 50% 120%, rgba(197,178,255,0.12), transparent 34%),
-        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        radial-gradient(circle at 8% 10%, rgba(244,167,185,0.34), transparent 24%),
+        radial-gradient(circle at 92% 14%, rgba(169,207,231,0.34), transparent 25%),
+        radial-gradient(circle at 50% 104%, rgba(168,216,192,0.34), transparent 32%),
+        linear-gradient(180deg, #fff7e8 0%, #f6e7d3 100%);
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    body::before,
-    body::after {
-      content: "";
+    .grain {
       position: fixed;
-      inset: auto;
-      width: 40vw;
-      height: 40vw;
-      border-radius: 50%;
+      inset: 0;
       pointer-events: none;
-      filter: blur(60px);
-      opacity: 0.18;
+      opacity: 0.16;
+      background-image: radial-gradient(rgba(95,70,54,0.18) 1px, transparent 1px);
+      background-size: 18px 18px;
       z-index: 0;
-    }
-
-    body::before {
-      left: -10vw;
-      top: 10vh;
-      background: #4cc9f0;
-    }
-
-    body::after {
-      right: -10vw;
-      top: 0;
-      background: #f72585;
     }
 
     .topbar {
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(16px);
-      background: rgba(5, 8, 16, 0.66);
+      backdrop-filter: blur(18px);
+      background: rgba(255, 247, 232, 0.82);
       border-bottom: 1px solid var(--line);
     }
 
     .nav {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 14px 22px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -91,51 +76,56 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: 0.03em;
+      color: var(--mocha);
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
-      background: linear-gradient(135deg, rgba(116,215,255,0.22), rgba(255,147,209,0.25));
-      border: 1px solid rgba(255,255,255,0.14);
-      box-shadow: var(--shadow);
-      font-size: 18px;
+      background: linear-gradient(135deg, #ffe0ec, #d7f0e2);
+      border: 1px solid var(--line);
+      box-shadow: var(--soft-shadow);
+      font-size: 20px;
     }
 
     .nav-links {
       display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
+      gap: 6px;
       align-items: center;
+      flex-wrap: wrap;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.42);
+      border: 1px solid var(--line);
     }
 
     .nav-links a {
       text-decoration: none;
       color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 9px 12px;
+      border-radius: 999px;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--rose-dark); background: rgba(244,167,185,0.14); }
 
     .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       text-decoration: none;
-      color: #07111f;
-      background: linear-gradient(90deg, var(--cyan), var(--pink));
-      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, var(--rose-dark), #eaa164);
+      border-radius: 16px;
       padding: 12px 16px;
-      border-radius: 14px;
-      box-shadow: var(--shadow);
+      font-weight: 950;
+      box-shadow: var(--soft-shadow);
+      white-space: nowrap;
     }
 
     .page {
@@ -143,592 +133,414 @@
       z-index: 1;
       max-width: var(--max);
       margin: 0 auto;
-      padding: 26px 22px 80px;
+      padding: 28px 20px 80px;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
       gap: 22px;
+      margin-top: 18px;
       align-items: stretch;
-      margin-top: 16px;
     }
 
     .card {
-      background: var(--panel);
+      background: var(--paper);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      position: relative;
       overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 18%);
+      position: relative;
     }
 
     .hero-main {
-      padding: 42px;
-      min-height: 440px;
+      padding: clamp(28px, 5vw, 54px);
+      min-height: 500px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    .eyebrow {
+    .sticker-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+    .sticker {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
+      gap: 8px;
+      padding: 9px 13px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: var(--cyan);
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 950;
       font-size: 13px;
-      font-weight: 800;
-      width: fit-content;
-      margin-bottom: 18px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(46px, 8vw, 88px);
+      color: var(--mocha);
+      font-size: clamp(48px, 8vw, 88px);
       line-height: 0.92;
-      letter-spacing: -0.055em;
+      letter-spacing: -0.06em;
     }
 
-    .gradient {
-      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--violet));
+    .soft-gradient {
+      background: linear-gradient(90deg, var(--rose-dark), #e9a65c, #77ad91);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     .hero-copy {
+      margin: 20px 0 0;
       color: var(--muted);
       font-size: 18px;
       line-height: 1.75;
-      max-width: 60ch;
-      margin: 20px 0 0;
+      max-width: 62ch;
     }
 
-    .actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
     .btn {
-      appearance: none;
       border: 0;
+      appearance: none;
       text-decoration: none;
       padding: 14px 18px;
-      border-radius: 16px;
+      border-radius: 18px;
       font-size: 15px;
-      font-weight: 900;
+      font-weight: 950;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       cursor: pointer;
-      transition: transform 0.16s ease, opacity 0.16s ease;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
     }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary {
-      color: #08111f;
-      background: linear-gradient(90deg, var(--cyan), var(--pink));
-    }
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.11);
-    }
-
-    .hero-subnote {
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--soft-shadow); }
+    .btn-primary { color: white; background: linear-gradient(135deg, var(--rose-dark), #eaa164); }
+    .btn-secondary { color: var(--mocha); background: rgba(255,255,255,0.62); border: 1px solid var(--line); }
 
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      background: rgba(255,255,255,0.06);
-      color: var(--yellow);
+      color: var(--rose-dark);
+      background: rgba(244,167,185,0.16);
+      border: 1px solid rgba(217,109,138,0.18);
       border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.08);
       padding: 3px 8px;
     }
 
-    .hero-side {
-      padding: 22px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
+    .hero-side { padding: 22px; display: grid; gap: 14px; }
+    .server-card {
+      background: linear-gradient(160deg, rgba(255,255,255,0.72), rgba(255,255,255,0.42));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
     }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .mini-card {
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-md);
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .mini-card, .info-box, .players-box, .members-box, .chart-box {
+      background: rgba(255,255,255,0.58);
+      border: 1px solid var(--line);
+      border-radius: 22px;
       padding: 18px;
     }
+    .mini-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 950; margin-bottom: 8px; }
+    .mini-value { color: var(--mocha); font-size: clamp(22px, 4vw, 28px); font-weight: 950; line-height: 1.15; word-break: break-word; }
+    .mini-sub, .small-copy { color: var(--muted); font-size: 13px; line-height: 1.55; margin-top: 8px; }
+    .status-line { display: inline-flex; align-items: center; gap: 10px; }
+    .status-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 6px rgba(217,120,120,0.16); }
+    .status-dot.online { background: var(--green); box-shadow: 0 0 0 6px rgba(114,184,139,0.18); }
 
-    .mini-label {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 8px;
-      font-weight: 800;
-    }
-
-    .mini-value {
-      font-size: clamp(22px, 4vw, 28px);
-      font-weight: 900;
-      line-height: 1.15;
-      word-break: break-word;
-    }
-
-    .mini-sub {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 8px;
-      line-height: 1.5;
-    }
-
-    .status-line {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .status-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 0 5px rgba(251,113,133,0.12);
-      flex: 0 0 auto;
-    }
-
-    .status-dot.online {
-      background: var(--green);
-      box-shadow: 0 0 0 5px rgba(74,222,128,0.12);
-    }
-
-    .section {
-      margin-top: 28px;
-    }
-
-    .section-card {
-      padding: 28px;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 38px);
-      letter-spacing: -0.04em;
-    }
-
-    .section-copy {
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 70ch;
-      margin-top: 8px;
-    }
-
-    .join-grid,
-    .community-grid,
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .feature-box {
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-
-    .feature-box strong {
-      display: block;
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .feature-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .map-wrap {
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: #050814;
-      margin-top: 18px;
-    }
-
-    iframe.map {
-      width: 100%;
-      height: 72vh;
-      min-height: 560px;
-      border: 0;
-      display: block;
-    }
-
-    .status-layout {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .chart-box,
-    .players-box {
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-md);
-      padding: 20px;
-    }
-
-    .chart-title,
-    .players-title {
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 14px;
-    }
-
-    #uptimeChart {
-      width: 100%;
-      height: 220px;
-      display: block;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .chart-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .players-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .player-item,
-    .empty-player {
+    .quick-links { display: grid; gap: 10px; }
+    .quick-link {
+      text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,250,241,0.72);
+      border: 1px solid var(--line);
+      color: var(--mocha);
+      font-weight: 950;
+    }
+    .quick-link span { color: var(--muted); font-size: 13px; font-weight: 800; }
+    .quick-link, .mini-card, .info-box, .players-box, .chart-box, .server-card {
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .quick-link:hover, .mini-card:hover, .info-box:hover, .players-box:hover, .chart-box:hover, .server-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--soft-shadow);
+      border-color: rgba(217,109,138,0.26);
+      background: rgba(255,255,255,0.72);
     }
 
-    .player-left {
+    .section { margin-top: 28px; scroll-margin-top: 92px; }
+    .section-card { padding: clamp(22px, 4vw, 34px); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+    h2 { margin: 0; color: var(--mocha); font-size: clamp(30px, 5vw, 44px); letter-spacing: -0.045em; }
+    h3 { margin: 0 0 12px; color: var(--mocha); }
+    .section-copy { color: var(--muted); line-height: 1.75; max-width: 74ch; margin: 8px 0 0; }
+
+    .join-steps, .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+    .join-steps { grid-template-columns: repeat(4, 1fr); }
+    .step-number { width: 38px; height: 38px; border-radius: 14px; background: linear-gradient(135deg, #ffe0ec, #d7f0e2); display: grid; place-items: center; color: var(--mocha); font-weight: 950; margin-bottom: 12px; }
+    .info-box strong { display: block; color: var(--mocha); font-size: 17px; margin-bottom: 8px; }
+    .info-box p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .status-layout { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 18px; margin-top: 18px; }
+    #uptimeChart { width: 100%; height: 220px; display: block; background: linear-gradient(180deg, rgba(255,255,255,0.50), rgba(255,255,255,0.25)); border-radius: 18px; border: 1px solid var(--line); }
+    .list { display: grid; gap: 10px; }
+    .player-item, .empty-player { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 14px; border-radius: 16px; background: rgba(255,250,241,0.74); border: 1px solid var(--line); }
+    .left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .avatar { width: 38px; height: 38px; border-radius: 12px; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, #ffe0ec, #d7f0e2); font-weight: 950; color: var(--mocha); flex: 0 0 auto; }
+    .avatar img { width: 100%; height: 100%; display: block; image-rendering: pixelated; object-fit: cover; }
+    .name { color: var(--mocha); font-weight: 950; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .role { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .tag { font-size: 12px; font-weight: 950; padding: 6px 10px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--line); color: var(--muted); background: rgba(255,255,255,0.6); }
+    .tag.online { color: #3d7f57; background: rgba(114,184,139,0.18); border-color: rgba(114,184,139,0.25); }
+    .tag.offline { color: #b95b5b; background: rgba(217,120,120,0.14); border-color: rgba(217,120,120,0.22); }
+
+    .roster-section { margin-top: 20px; }
+    .roster-title {
       display: flex;
       align-items: center;
-      gap: 12px;
-      min-width: 0;
+      gap: 10px;
+      margin: 0 0 12px;
+      color: var(--mocha);
+      font-size: 21px;
+      letter-spacing: -0.02em;
     }
-
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
+    .roster-note { margin: -6px 0 14px; color: var(--muted); line-height: 1.6; }
+    .owners-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .members-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .member-card {
+      min-height: 248px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.70), rgba(255,250,241,0.80));
       overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 24px rgba(72, 48, 32, 0.07);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      will-change: transform;
+    }
+    .member-card:hover { transform: translateY(-8px) scale(1.015); box-shadow: 0 24px 54px rgba(72, 48, 32, 0.18); border-color: rgba(217,109,138,0.30); }
+    .member-card:hover .skin-area img { transform: translateY(-6px) scale(1.04); }
+    .owner-card {
+      min-height: 300px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,240,247,0.72)),
+        radial-gradient(circle at 20% 10%, rgba(244,167,185,0.35), transparent 32%),
+        radial-gradient(circle at 82% 0%, rgba(168,216,192,0.32), transparent 30%);
+    }
+    .skin-area {
+      height: 164px;
       display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(116,215,255,0.22), rgba(255,147,209,0.24));
-      font-size: 13px;
-      font-weight: 900;
-      flex: 0 0 auto;
+      place-items: end center;
+      padding-top: 14px;
+      background:
+        radial-gradient(circle at 50% 92%, rgba(95,70,54,0.14), transparent 27%),
+        linear-gradient(135deg, rgba(244,167,185,0.22), rgba(168,216,192,0.24));
     }
+    .skin-area img { height: 150px; max-width: 92%; image-rendering: pixelated; filter: drop-shadow(0 10px 12px rgba(72,48,32,0.18)); transition: transform 0.22s ease; }
+    .owner-card .skin-area { height: 198px; }
+    .owner-card .skin-area img { height: 184px; }
+    .member-caption { margin-top: 5px; color: var(--rose-dark); font-size: 12px; font-weight: 900; line-height: 1.35; }
+    .owner-card .member-info { align-items: flex-start; }
 
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      image-rendering: pixelated;
-    }
+    .member-info { padding: 13px 14px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .member-meta { min-width: 0; }
 
-    .player-name {
-      font-weight: 800;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .player-tag {
-      font-size: 12px;
-      color: var(--muted);
-      background: rgba(255,255,255,0.05);
-      padding: 6px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .about-copy {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.85;
-      max-width: 76ch;
-      margin: 8px 0 0;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 30px 0 10px;
-      font-size: 14px;
-    }
-
-    .tiny {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
+    .map-wrap { border-radius: 24px; overflow: hidden; border: 1px solid var(--line); background: #ead8c2; margin-top: 18px; }
+    iframe.map { width: 100%; height: 70vh; min-height: 540px; border: 0; display: block; }
+    .footer { text-align: center; color: var(--muted); padding: 30px 0 10px; font-size: 14px; }
 
     @media (max-width: 1050px) {
-      .hero,
-      .status-layout,
-      .join-grid,
-      .community-grid,
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .hero, .status-layout, .join-steps, .grid-3 { grid-template-columns: 1fr; }
+      .members-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .owners-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-
-    @media (max-width: 720px) {
+    @media (max-width: 820px) {
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .members-grid, .owners-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
       .page { padding-inline: 14px; }
       .nav { padding-inline: 14px; }
-      .hero-main, .hero-side, .section-card { padding: 20px; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      iframe.map { min-height: 400px; height: 58vh; }
+      .hero-main, .section-card, .hero-side { padding: 20px; }
+      .stats-grid, .members-grid, .owners-grid { grid-template-columns: 1fr; }
       h1 { font-size: 48px; }
+      iframe.map { min-height: 390px; height: 58vh; }
+      .actions .btn, .nav-cta { width: 100%; }
+      .brand { width: 100%; }
+      .nav { align-items: stretch; flex-direction: column; }
     }
   </style>
 </head>
 <body>
+  <div class="grain"></div>
+
   <div class="topbar">
     <div class="nav">
-      <div class="brand">
-        <div class="brand-mark">🐟</div>
-        <div>CatKoi SMP</div>
-      </div>
+      <a class="brand" href="#top"><div class="brand-mark">🐾</div><div>CatKoi SMP</div></a>
       <div class="nav-links">
-        <a href="#home">Home</a>
+        <a href="#join">Join</a>
+        <a href="#download">Download</a>
         <a href="#status">Status</a>
+        <a href="#members">Members</a>
         <a href="#map">Map</a>
-        <a href="#about">About</a>
-        <a href="#community">Community</a>
+        <a href="#faq">FAQ</a>
       </div>
       <a class="nav-cta" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Join Discord</a>
     </div>
   </div>
 
-  <main class="page">
-    <section id="home" class="hero">
+  <main class="page" id="top">
+    <section class="hero">
       <div class="card hero-main">
-        <div class="eyebrow">modded survival · live map · growing community</div>
-        <h1><span class="gradient">CatKoi</span><br />build, explore, and stay awhile</h1>
-        <p class="hero-copy">
-          A cozy modded Minecraft server that started as one setup for a girlfriend and turned into a little world we want to keep growing.
-          If you want a chill place to build, mess around with Create, and actually know the people you play with, this is the spot.
-        </p>
+        <div class="sticker-row">
+          <span class="sticker">☕ Cozy Create SMP</span>
+          <span class="sticker">🧭 Easy travel</span>
+          <span class="sticker">🎒 Quality-of-life</span>
+        </div>
+        <h1><span class="soft-gradient">CatKoi</span><br />a comfy modded world</h1>
+        <p class="hero-copy">A small, friendly Minecraft community built around Create, cozy exploration, shared bases, and a setup that is easy for friends to join.</p>
         <div class="actions">
           <button class="btn btn-primary" id="copyIpBtn">Copy Server IP</button>
-          <a class="btn btn-secondary" href="#map">Open Live Map</a>
-          <a class="btn btn-secondary" href="https://www.curseforge.com/minecraft/modpacks/create-essentials-better-experience-with-create-6-0-and-create-addons" target="_blank" rel="noreferrer">Get the Modpack</a>
-          <a class="btn btn-secondary" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Discord</a>
+          <a class="btn btn-secondary" href="#download">Download Pack</a>
+          <a class="btn btn-secondary" href="#join">How to Join</a>
+          <a class="btn btn-secondary" href="#map">View Map</a>
         </div>
-        <div class="hero-subnote">Join with <code>play.catkoi.net</code> · Live map at <code>map.catkoi.net</code></div>
+        <p class="small-copy">Server IP: <code>play.catkoi.net</code> · Live map: <code>map.catkoi.net</code></p>
       </div>
 
       <div class="card hero-side">
+        <div class="server-card">
+          <div class="mini-label">Server Status</div>
+          <div class="mini-value status-line"><span id="statusDot" class="status-dot"></span><span id="statusText">Checking…</span></div>
+          <div class="mini-sub" id="statusSub">Trying play.catkoi.net</div>
+        </div>
         <div class="stats-grid">
-          <div class="mini-card">
-            <div class="mini-label">Server Status</div>
-            <div class="mini-value status-line"><span id="statusDot" class="status-dot"></span><span id="statusText">Checking…</span></div>
-            <div class="mini-sub" id="statusSub">Trying play.catkoi.net</div>
-          </div>
-          <div class="mini-card">
-            <div class="mini-label">Players Online</div>
-            <div class="mini-value" id="playerCount">--</div>
-            <div class="mini-sub" id="versionText">Waiting for version info</div>
-          </div>
-          <div class="mini-card">
-            <div class="mini-label">Server IP</div>
-            <div class="mini-value">play.catkoi.net</div>
-            <div class="mini-sub">Default Java port · no extra port needed</div>
-          </div>
-          <div class="mini-card">
-            <div class="mini-label">Modpack</div>
-            <div class="mini-value">Create Essentials</div>
-            <div class="mini-sub">Linked below so everyone can grab the exact pack</div>
-          </div>
+          <div class="mini-card"><div class="mini-label">Players</div><div class="mini-value" id="playerCount">--</div><div class="mini-sub" id="versionText">Waiting for version info</div></div>
+          <div class="mini-card"><div class="mini-label">Whitelist</div><div class="mini-value" id="memberSummary">--</div><div class="mini-sub">Online / whitelisted</div></div>
+        </div>
+        <div class="quick-links">
+          <a class="quick-link" href="#join">Start here <span>Join guide →</span></a>
+          <a class="quick-link" href="#members">See roster <span>Skins →</span></a>
+          <a class="quick-link" href="https://map.catkoi.net" target="_blank" rel="noreferrer">Open live map <span>BlueMap →</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="section">
+      <div class="card section-card">
+        <div class="section-head"><div><h2>How to join</h2><p class="section-copy">Send friends here so they can set everything up without needing a long explanation.</p></div></div>
+        <div class="join-steps">
+          <div class="info-box"><div class="step-number">1</div><strong>Download the pack</strong><p>Grab the zip below or use the CurseForge page once it is approved.</p></div>
+          <div class="info-box"><div class="step-number">2</div><strong>Import it</strong><p>Open CurseForge, choose Minecraft, then import the zip as a custom profile.</p></div>
+          <div class="info-box"><div class="step-number">3</div><strong>Get whitelisted</strong><p>Join Discord and ask to be added to the server whitelist.</p></div>
+          <div class="info-box"><div class="step-number">4</div><strong>Connect</strong><p>Add <code>play.catkoi.net</code> in multiplayer and join the world.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download" class="section">
+      <div class="card section-card">
+        <div class="section-head"><div><h2>Download the pack</h2><p class="section-copy">Keep the setup simple with one clear download area.</p></div></div>
+        <div class="grid-3">
+          <div class="info-box"><strong>Direct zip download</strong><p>Upload your exported modpack zip beside <code>index.html</code>, then name it <code>catkoi-modpack.zip</code>.</p><div style="margin-top:14px;"><a class="btn btn-primary" href="catkoi-modpack.zip" download>Download Zip</a></div></div>
+          <div class="info-box"><strong>CurseForge page</strong><p>Once your pack is approved, replace this with your real project link.</p><div style="margin-top:14px;"><a class="btn btn-secondary" href="https://www.curseforge.com/minecraft/modpacks/create-essentials-better-experience-with-create-6-0-and-create-addons" target="_blank" rel="noreferrer">Current Base Pack</a></div></div>
+          <div class="info-box"><strong>Recommended RAM</strong><p>Allocate 6–8GB RAM. Lower-end PCs should close extra apps before launching.</p></div>
         </div>
       </div>
     </section>
 
     <section id="status" class="section">
       <div class="card section-card">
-        <div class="section-head">
-          <div>
-            <h2>Live server status</h2>
-            <div class="section-copy">This panel checks the server live, shows who is online, and keeps a simple uptime history in your browser so visitors can quickly tell whether the server has been stable.</div>
-          </div>
+        <div class="section-head"><div><h2>Live status</h2><p class="section-copy">Online/offline check, player count, online names, and a simple recent uptime graph stored in each visitor’s browser.</p></div></div>
+        <div class="status-layout">
+          <div class="chart-box"><h3>Recent uptime</h3><canvas id="uptimeChart" width="800" height="220"></canvas><p class="small-copy">Green = online check. Red = offline or unreachable check.</p></div>
+          <div class="players-box"><h3>Online players</h3><div id="playersList" class="list"><div class="empty-player">Checking player list…</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="members" class="section">
+      <div class="card section-card">
+        <div class="section-head"><div><h2>Whitelisted members</h2><p class="section-copy">A cleaner roster split between the couple who started the world and the friends who make it feel alive.</p></div></div>
+
+        <div class="roster-section">
+          <h3 class="roster-title">💖 Founders</h3>
+          <p class="roster-note">The heart of CatKoi SMP.</p>
+          <div id="ownersList" class="owners-grid"></div>
         </div>
 
-        <div class="status-layout">
-          <div class="chart-box">
-            <div class="chart-title">Uptime history</div>
-            <canvas id="uptimeChart" width="800" height="220"></canvas>
-            <div class="chart-note">This graph updates every 30 seconds and stores the latest checks locally in the browser. Green means the server responded. Pink means it was unreachable.</div>
-          </div>
-          <div class="players-box">
-            <div class="players-title">Online players</div>
-            <div id="playersList" class="players-list">
-              <div class="empty-player">Checking player list…</div>
-            </div>
-          </div>
+        <div class="roster-section">
+          <h3 class="roster-title">🌱 Members</h3>
+          <div id="membersList" class="members-grid"></div>
         </div>
       </div>
     </section>
 
     <section id="map" class="section">
       <div class="card section-card">
-        <div class="section-head">
-          <div>
-            <h2>Live BlueMap</h2>
-            <div class="section-copy">The world map is embedded directly into the site so people can check explored areas, orient themselves, and peek at the world before they hop in.</div>
-          </div>
-          <a class="btn btn-secondary" href="https://map.catkoi.net" target="_blank" rel="noreferrer">Open full map</a>
-        </div>
-        <div class="map-wrap">
-          <iframe class="map" src="https://map.catkoi.net" title="CatKoi BlueMap"></iframe>
-        </div>
+        <div class="section-head"><div><h2>Live BlueMap</h2><p class="section-copy">Check explored areas, bases, paths, and builds.</p></div><a class="btn btn-secondary" href="https://map.catkoi.net" target="_blank" rel="noreferrer">Open full map</a></div>
+        <div class="map-wrap"><iframe class="map" src="https://map.catkoi.net" title="CatKoi BlueMap"></iframe></div>
       </div>
     </section>
 
-    <section id="about" class="section">
+    <section id="faq" class="section">
       <div class="card section-card">
-        <div class="section-head">
-          <div>
-            <h2>About CatKoi</h2>
-            <div class="section-copy">A small server with a personal start that turned into a community project.</div>
-          </div>
-        </div>
-
-        <p class="about-copy">
-          CatKoi started with one simple idea: setting up a modded server for my girlfriend so we could have our own world to play in together.
-          What began as a private little project quickly turned into something we wanted to share with more people — a relaxed place where friends could build, explore, and actually enjoy the game together.
-        </p>
-        <p class="about-copy">
-          Now the goal is to grow that into a real community. Not a giant chaotic network, but a server full of people who want to hang out, build cool stuff, help each other, and make the world feel alive.
-          If that sounds like your kind of server, you’re exactly who we want here.
-        </p>
-
-        <div class="about-grid">
-          <div class="feature-box">
-            <strong>How it started</strong>
-            <p>One setup, one world, and a plan to make something fun and personal instead of just joining another random server.</p>
-          </div>
-          <div class="feature-box">
-            <strong>What it is now</strong>
-            <p>A modded Create-focused SMP with a live map, a growing Discord, and a bunch of room for more people to leave their mark.</p>
-          </div>
-          <div class="feature-box">
-            <strong>What we want</strong>
-            <p>A chill community of players who want to stick around, build big things, and make the server feel like home.</p>
-          </div>
+        <div class="section-head"><div><h2>Quick info</h2><p class="section-copy">Basic details for new players.</p></div></div>
+        <div class="grid-3">
+          <div class="info-box"><strong>What version?</strong><p>Minecraft Java 1.21.1 on NeoForge. Use the modpack so versions match.</p></div>
+          <div class="info-box"><strong>What mods matter?</strong><p>Create, Waystones, backpacks, Curios, FTB Essentials, and cozy multiplayer utilities.</p></div>
+          <div class="info-box"><strong>How do I get whitelisted?</strong><p>Join Discord and ask. Once added, connect using <code>play.catkoi.net</code>.</p></div>
         </div>
       </div>
     </section>
 
-    <section id="community" class="section">
-      <div class="card section-card">
-        <div class="section-head">
-          <div>
-            <h2>Community links</h2>
-            <div class="section-copy">Everything people need to actually join and get set up properly.</div>
-          </div>
-        </div>
-
-        <div class="community-grid">
-          <div class="feature-box">
-            <strong>Discord</strong>
-            <p>Join the server, get updates, ask questions, and see what everyone’s building.</p>
-            <div style="margin-top:14px;"><a class="btn btn-primary" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Open Discord</a></div>
-          </div>
-          <div class="feature-box">
-            <strong>Modpack</strong>
-            <p>Grab the exact pack the server uses so you can connect without version headaches.</p>
-            <div style="margin-top:14px;"><a class="btn btn-secondary" href="https://www.curseforge.com/minecraft/modpacks/create-essentials-better-experience-with-create-6-0-and-create-addons" target="_blank" rel="noreferrer">Open modpack page</a></div>
-          </div>
-          <div class="feature-box">
-            <strong>Quick join</strong>
-            <p>Use the address below in Minecraft Java Edition.</p>
-            <div style="margin-top:14px;"><code>play.catkoi.net</code></div>
-            <div class="tiny" style="margin-top:12px;">NeoForge · modded survival · Java Edition</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">CatKoi SMP · built for Kat, Louie, and the community growing around them</div>
+    <div class="footer">CatKoi SMP · comfy modded Minecraft with friends</div>
   </main>
 
   <script>
+    const SERVER_ADDRESS = 'play.catkoi.net';
+
+    const OWNERS = [
+      { uuid: '44f628b3-57e5-450e-b724-24b18a4b35e1', name: 'Lakoi', role: 'Founder' },
+      { uuid: 'd0dedf06-7fc3-481b-b43a-749c71a7df76', name: 'iamturtlee', role: 'Founder', caption: 'the reason this server exists' }
+    ];
+
+    const MEMBERS = [
+      { uuid: 'fc5511a4-2da2-4c88-84e7-2c0c28d0b660', name: 'alegingerale', role: 'Member' },
+      { uuid: 'f0f835a4-e81c-4494-84eb-beae9f7eada2', name: 'PoTaToSudi', role: 'Member' },
+      { uuid: '2daf2b52-ae0b-4155-9edb-5837712b8a5b', name: 'Qrib', role: 'Member' },
+      { uuid: '2f80597a-f474-4084-aabd-818e1045ac9a', name: 'Zeyichun', role: 'Member' },
+      { uuid: 'a110c926-85a0-43f9-9656-9a5971a955bb', name: 'Jackcole194', role: 'Member' },
+      { uuid: '5be3831c-fb77-49c2-b5a9-bc1c34f8907c', name: 'TheMintTea', role: 'Member' },
+      { uuid: '15623721-80f0-4a5a-a4ec-339f93335ef0', name: 'Lutrasss', role: 'Member' },
+      { uuid: '1b019e11-ee4c-4838-95a8-65d0e0e6f837', name: 'General_Luke', role: 'Member' },
+      { uuid: '1f1e8e76-9f23-41f5-bc14-5be9b80c29ea', name: 'Nero_ysa', role: 'Member' }
+    ];
+
+    const WHITELISTED_MEMBERS = [...OWNERS, ...MEMBERS];
+
     const statusText = document.getElementById('statusText');
     const statusSub = document.getElementById('statusSub');
     const playerCount = document.getElementById('playerCount');
     const versionText = document.getElementById('versionText');
     const playersList = document.getElementById('playersList');
+    const ownersList = document.getElementById('ownersList');
+    const membersList = document.getElementById('membersList');
+    const memberSummary = document.getElementById('memberSummary');
     const statusDot = document.getElementById('statusDot');
     const copyIpBtn = document.getElementById('copyIpBtn');
     const STORAGE_KEY = 'catkoi_uptime_history';
 
     copyIpBtn.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText('play.catkoi.net');
+        await navigator.clipboard.writeText(SERVER_ADDRESS);
         copyIpBtn.textContent = 'Copied';
         setTimeout(() => copyIpBtn.textContent = 'Copy Server IP', 1600);
       } catch {
@@ -737,24 +549,32 @@
       }
     });
 
-    function readHistory() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      } catch {
-        return [];
-      }
+    function safeText(value) {
+      return String(value).replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    function saveHistory(items) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items.slice(-40)));
+    function getPlayerName(player) {
+      if (typeof player === 'string') return player;
+      if (player && typeof player === 'object') return player.name || player.username || player.id || 'Unknown player';
+      return 'Unknown player';
     }
 
-    function addHistoryPoint(online) {
-      const history = readHistory();
-      history.push({ t: Date.now(), online: !!online });
-      saveHistory(history);
-      drawChart();
+    function headAvatarHtml(memberOrName) {
+      const name = typeof memberOrName === 'string' ? memberOrName : memberOrName.name;
+      const uuid = typeof memberOrName === 'object' ? memberOrName.uuid : '';
+      const safeName = safeText(name);
+      const initial = safeName.trim().charAt(0).toUpperCase() || '?';
+      const src = uuid ? `https://crafatar.com/avatars/${uuid}?size=64&overlay` : `https://mc-heads.net/avatar/${encodeURIComponent(name)}/64`;
+      return `<div class="avatar"><img src="${src}" alt="${safeName}" onerror="this.remove(); this.parentNode.textContent='${initial}'"></div>`;
     }
+
+    function skinUrl(uuid) {
+      return `https://crafatar.com/renders/body/${uuid}?size=180&overlay`;
+    }
+
+    function readHistory() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; } }
+    function saveHistory(items) { localStorage.setItem(STORAGE_KEY, JSON.stringify(items.slice(-40))); }
+    function addHistoryPoint(online) { const h = readHistory(); h.push({ t: Date.now(), online: !!online }); saveHistory(h); drawChart(); }
 
     function drawChart() {
       const canvas = document.getElementById('uptimeChart');
@@ -762,50 +582,21 @@
       const history = readHistory();
       const w = canvas.width;
       const h = canvas.height;
-
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = 'rgba(255,255,255,0.02)';
+      ctx.fillStyle = 'rgba(255,255,255,0.38)';
       ctx.fillRect(0, 0, w, h);
-
-      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-      ctx.lineWidth = 1;
-      for (let i = 1; i <= 4; i++) {
-        const y = (h / 5) * i;
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-        ctx.stroke();
-      }
-
-      if (!history.length) {
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.font = '14px Inter, sans-serif';
-        ctx.fillText('No status checks yet', 20, 30);
-        return;
-      }
-
+      ctx.strokeStyle = 'rgba(95,70,54,0.12)';
+      for (let i = 1; i <= 4; i++) { const y = (h / 5) * i; ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+      if (!history.length) { ctx.fillStyle = 'rgba(95,70,54,0.55)'; ctx.font = '14px Inter, sans-serif'; ctx.fillText('No status checks yet', 20, 30); return; }
       const step = Math.max(12, w / Math.max(history.length, 1));
       history.forEach((point, i) => {
         const x = i * step + 10;
         const barW = Math.max(8, step - 6);
         const y = point.online ? h * 0.2 : h * 0.65;
         const barH = point.online ? h * 0.6 : h * 0.15;
-        ctx.fillStyle = point.online ? 'rgba(74,222,128,0.9)' : 'rgba(251,113,133,0.9)';
+        ctx.fillStyle = point.online ? 'rgba(114,184,139,0.88)' : 'rgba(217,120,120,0.88)';
         ctx.fillRect(x, y, barW, barH);
       });
-
-      ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      ctx.font = '12px Inter, sans-serif';
-      ctx.fillText('older', 16, h - 10);
-      ctx.fillText('newer', w - 48, h - 10);
-    }
-
-    function getPlayerName(player) {
-      if (typeof player === 'string') return player;
-      if (player && typeof player === 'object') {
-        return player.name || player.username || player.id || 'Unknown player';
-      }
-      return 'Unknown player';
     }
 
     function renderPlayers(players) {
@@ -813,44 +604,61 @@
         playersList.innerHTML = '<div class="empty-player">Nobody online right now</div>';
         return;
       }
-
       playersList.innerHTML = players.slice(0, 12).map((player) => {
         const name = getPlayerName(player);
-        const safeName = String(name).replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const initial = safeName.trim().charAt(0).toUpperCase() || '?';
-        const avatarUrl = `https://mc-heads.net/avatar/${encodeURIComponent(name)}/32`;
-
-        return `
-          <div class="player-item">
-            <div class="player-left">
-              <div class="avatar">
-                <img src="${avatarUrl}" alt="${safeName}" onerror="this.remove(); this.parentNode.textContent='${initial}'">
-              </div>
-              <div class="player-name">${safeName}</div>
-            </div>
-            <div class="player-tag">Online</div>
-          </div>
-        `;
+        const member = WHITELISTED_MEMBERS.find(m => m.name.toLowerCase() === name.toLowerCase());
+        return `<div class="player-item"><div class="left">${headAvatarHtml(member || name)}<div class="name">${safeText(name)}</div></div><div class="tag online">Online</div></div>`;
       }).join('');
+    }
+
+    function memberCardHtml(member, onlineSet, isOwner = false) {
+      const isOnline = onlineSet.has(member.name.toLowerCase());
+      const status = isOnline ? 'Online' : 'Offline';
+      const tagClass = isOnline ? 'online' : 'offline';
+      const caption = member.caption ? `<div class="member-caption">${safeText(member.caption)}</div>` : '';
+      const ownerClass = isOwner ? ' owner-card' : '';
+
+      return `
+        <article class="member-card${ownerClass}">
+          <div class="skin-area">
+            <img src="${skinUrl(member.uuid)}" alt="${safeText(member.name)} Minecraft skin" loading="lazy" onerror="this.src='https://crafatar.com/avatars/${member.uuid}?size=128&overlay'">
+          </div>
+          <div class="member-info">
+            <div class="member-meta">
+              <div class="name">${safeText(member.name)}</div>
+              <div class="role">${safeText(member.role)}</div>
+              ${caption}
+            </div>
+            <div class="tag ${tagClass}">${status}</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderMembers(onlineNames) {
+      const onlineSet = new Set(onlineNames.map(n => n.toLowerCase()));
+      const onlineCount = WHITELISTED_MEMBERS.filter(m => onlineSet.has(m.name.toLowerCase())).length;
+      memberSummary.textContent = `${onlineCount}/${WHITELISTED_MEMBERS.length}`;
+      ownersList.innerHTML = OWNERS.map(member => memberCardHtml(member, onlineSet, true)).join('');
+      membersList.innerHTML = MEMBERS.map(member => memberCardHtml(member, onlineSet, false)).join('');
     }
 
     async function getServerStatus() {
       try {
-        const res = await fetch('https://api.mcsrvstat.us/3/play.catkoi.net');
+        const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_ADDRESS}`);
         const data = await res.json();
-
         if (data && data.online) {
           statusText.textContent = 'Online';
-          statusSub.textContent = `Server is live at ${data.hostname || 'play.catkoi.net'}`;
+          statusSub.textContent = `Server is live at ${data.hostname || SERVER_ADDRESS}`;
           statusDot.classList.add('online');
-
           const online = data.players?.online ?? 0;
           const max = data.players?.max ?? '?';
           playerCount.textContent = `${online}/${max}`;
           versionText.textContent = `Version: ${data.version || 'Unknown'}`;
-
           const list = Array.isArray(data.players?.list) ? data.players.list : [];
+          const onlineNames = list.map(getPlayerName);
           renderPlayers(list);
+          renderMembers(onlineNames);
           addHistoryPoint(true);
         } else {
           statusText.textContent = 'Offline';
@@ -859,6 +667,7 @@
           playerCount.textContent = '0';
           versionText.textContent = 'Version unavailable';
           renderPlayers([]);
+          renderMembers([]);
           addHistoryPoint(false);
         }
       } catch {
@@ -868,11 +677,13 @@
         playerCount.textContent = '--';
         versionText.textContent = 'Status unavailable';
         playersList.innerHTML = '<div class="empty-player">Could not load player list</div>';
+        renderMembers([]);
         addHistoryPoint(false);
       }
     }
 
     drawChart();
+    renderMembers([]);
     getServerStatus();
     setInterval(getServerStatus, 30000);
   </script>
