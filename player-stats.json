@@ -1,0 +1,70 @@
+{
+  "players": [
+    {
+      "name": "Lakoi",
+      "deaths": 20,
+      "hours": 68.5,
+      "lastSeen": "2026-05-05 01:05 AM"
+    },
+    {
+      "name": "iamturtlee",
+      "deaths": 78,
+      "hours": 43.7,
+      "lastSeen": "2026-05-05 01:06 AM"
+    },
+    {
+      "name": "PoTaToSudi",
+      "deaths": 38,
+      "hours": 61.2,
+      "lastSeen": "2026-05-04 11:06 PM"
+    },
+    {
+      "name": "alegingerale",
+      "deaths": 15,
+      "hours": 10.5,
+      "lastSeen": "2026-05-02 08:00 PM"
+    },
+    {
+      "name": "General_Luke",
+      "deaths": 1,
+      "hours": 0.3,
+      "lastSeen": "2026-05-03 03:39 AM"
+    },
+    {
+      "name": "Qrib",
+      "deaths": 6,
+      "hours": 11.1,
+      "lastSeen": "2026-05-04 12:18 PM"
+    },
+    {
+      "name": "Zeyichun",
+      "deaths": 0,
+      "hours": 0.1,
+      "lastSeen": "2026-04-28 02:53 PM"
+    },
+    {
+      "name": "Jackcole194",
+      "deaths": 273,
+      "hours": 67.5,
+      "lastSeen": "2026-05-04 11:56 PM"
+    },
+    {
+      "name": "TheMintTea",
+      "deaths": 0,
+      "hours": 1.0,
+      "lastSeen": "2026-04-23 09:02 PM"
+    },
+    {
+      "name": "Lutrasss",
+      "deaths": 8,
+      "hours": 2.9,
+      "lastSeen": "2026-04-30 08:49 PM"
+    },
+    {
+      "name": "Nero_ysa",
+      "deaths": 6,
+      "hours": 4.9,
+      "lastSeen": "2026-05-04 10:42 AM"
+    }
+  ]
+}
