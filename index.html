@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CatKoi SMP</title>
+
+<style>
+:root {
+  --cream:#fff7e8;
+  --paper:#fffaf1;
+  --mocha:#5f4636;
+  --cocoa:#2f211b;
+  --rose:#f4a7b9;
+  --rose-dark:#d96d8a;
+  --mint:#a8d8c0;
+  --green:#72b88b;
+  --red:#d97878;
+  --muted:#7c6658;
+  --line:rgba(95,70,54,0.16);
+  --shadow:0 20px 50px rgba(72,48,32,0.14);
+}
+
+* { box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(244,167,185,0.28), transparent 25%),
+    radial-gradient(circle at 90% 10%, rgba(168,216,192,0.28), transparent 25%),
+    linear-gradient(180deg,#fff7e8,#f3e3cf);
+  color:var(--cocoa);
+}
+
+nav {
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(14px);
+  background:rgba(255,247,232,0.84);
+  border-bottom:1px solid var(--line);
+}
+
+.nav-inner {
+  max-width:1150px;
+  margin:0 auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+
+.logo {
+  font-weight:950;
+  color:var(--mocha);
+  letter-spacing:0.02em;
+}
+
+.links {
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.links a {
+  color:var(--muted);
+  text-decoration:none;
+  font-weight:850;
+  font-size:14px;
+}
+
+.links a:hover { color:var(--rose-dark); }
+
+.section {
+  max-width:1150px;
+  margin:32px auto;
+  padding:0 20px;
+}
+
+.hero {
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:20px;
+  align-items:stretch;
+}
+
+.panel {
+  background:rgba(255,250,241,0.86);
+  border:1px solid var(--line);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  padding:28px;
+}
+
+h1 {
+  font-size:clamp(44px,7vw,76px);
+  line-height:0.95;
+  margin:0;
+  color:var(--mocha);
+  letter-spacing:-0.055em;
+}
+
+h2 {
+  margin:0 0 8px;
+  color:var(--mocha);
+  letter-spacing:-0.03em;
+}
+
+.gradient {
+  background:linear-gradient(90deg,var(--rose-dark),#eaa164,#77ad91);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.subtitle {
+  color:var(--muted);
+  line-height:1.7;
+  margin:8px 0 0;
+}
+
+.buttons {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.btn {
+  border:none;
+  text-decoration:none;
+  padding:13px 17px;
+  border-radius:16px;
+  font-weight:950;
+  cursor:pointer;
+  transition:0.18s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:inherit;
+}
+
+.btn:hover {
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+
+.primary {
+  background:linear-gradient(135deg,var(--rose-dark),#eaa164);
+  color:white;
+}
+
+.secondary {
+  background:rgba(255,255,255,0.68);
+  border:1px solid var(--line);
+  color:var(--mocha);
+}
+
+.status-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:16px;
+}
+
+.stat {
+  background:rgba(255,255,255,0.56);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+}
+
+.label {
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--muted);
+  font-weight:950;
+}
+
+.value {
+  margin-top:8px;
+  font-size:24px;
+  font-weight:950;
+  color:var(--mocha);
+}
+
+.dot {
+  display:inline-block;
+  width:12px;
+  height:12px;
+  border-radius:999px;
+  background:var(--red);
+  margin-right:8px;
+  box-shadow:0 0 0 6px rgba(217,120,120,0.15);
+}
+
+.dot.online {
+  background:var(--green);
+  box-shadow:0 0 0 6px rgba(114,184,139,0.18);
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:18px;
+  margin-top:18px;
+}
+
+.player {
+  position:relative;
+  background:#fffaf1;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 12px 28px rgba(72,48,32,0.10);
+  transition:0.2s ease;
+  cursor:pointer;
+}
+
+.player:hover {
+  transform:translateY(-7px) scale(1.02);
+  box-shadow:0 20px 44px rgba(72,48,32,0.18);
+}
+
+.skin-wrap {
+  height:165px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 50% 100%, rgba(95,70,54,0.12), transparent 24%),
+    linear-gradient(135deg,#ffe0ec,#f8f5ef,#d7f0e2);
+}
+
+.skin {
+  height:135px;
+  width:auto;
+  image-rendering:pixelated;
+  filter:drop-shadow(0 16px 14px rgba(72,48,32,0.2));
+  animation:walk 1.25s ease-in-out infinite;
+}
+
+@keyframes walk {
+  0%,100% { transform:translateY(0) rotate(-1deg); }
+  50% { transform:translateY(-8px) rotate(1deg); }
+}
+
+.info {
+  padding:13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.name {
+  font-weight:950;
+  color:var(--mocha);
+}
+
+.role, .badge-line {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.badge-line {
+  color:var(--rose-dark);
+  font-weight:900;
+}
+
+.caption {
+  font-size:12px;
+  font-weight:900;
+  color:var(--rose-dark);
+  margin-top:3px;
+}
+
+.tag {
+  font-size:11px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:950;
+  white-space:nowrap;
+  border:1px solid transparent;
+}
+
+.online-tag {
+  background:rgba(114,184,139,0.2);
+  color:#34794f;
+  border-color:rgba(114,184,139,0.3);
+}
+
+.offline-tag {
+  background:rgba(217,120,120,0.16);
+  color:#b65a5a;
+  border-color:rgba(217,120,120,0.25);
+}
+
+.hover-card {
+  position:absolute;
+  inset:0;
+  background:rgba(255,250,241,0.97);
+  backdrop-filter:blur(10px);
+  opacity:0;
+  pointer-events:none;
+  transition:0.2s ease;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
+  color:var(--mocha);
+}
+
+.player:hover .hover-card,
+.player:focus-within .hover-card {
+  opacity:1;
+}
+
+.hover-card b {
+  font-size:20px;
+}
+
+.hover-card div {
+  font-weight:800;
+  color:var(--muted);
+}
+
+.hover-card .relationship {
+  color:var(--rose-dark);
+}
+
+.online-list {
+  display:grid;
+  gap:10px;
+  margin-top:16px;
+}
+
+.online-player {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:rgba(255,250,241,0.78);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:10px 12px;
+  transition:0.18s ease;
+}
+
+.online-player:hover {
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(72,48,32,0.12);
+}
+
+.player-left {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.head {
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  image-rendering:pixelated;
+}
+
+.note {
+  background:rgba(255,255,255,0.56);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  color:var(--muted);
+  line-height:1.6;
+  margin-top:16px;
+  font-size:14px;
+}
+
+.map-wrap {
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  background:#ead8c2;
+  margin-top:16px;
+}
+
+iframe {
+  width:100%;
+  height:70vh;
+  min-height:520px;
+  border:0;
+  display:block;
+}
+
+.footer {
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+@media(max-width:850px) {
+  .hero { grid-template-columns:1fr; }
+  .status-grid { grid-template-columns:1fr; }
+  .links { display:none; }
+  iframe { min-height:380px; height:58vh; }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">🐾 CatKoi SMP</div>
+    <div class="links">
+      <a href="#status">Status</a>
+      <a href="#online-section">Online</a>
+      <a href="#founders">Founders</a>
+      <a href="#members">Members</a>
+      <a href="#map">Map</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section hero">
+  <div class="panel">
+    <h1><span class="gradient">CatKoi</span><br>a comfy modded world</h1>
+    <p class="subtitle">A cozy multiplayer Minecraft server built around Create, exploration, shared bases, and playing with friends.</p>
+
+    <div class="buttons">
+      <button class="btn primary" id="copyBtn">Copy Server IP</button>
+      <a class="btn secondary" href="https://www.curseforge.com/minecraft/modpacks/catkoi-modpack" target="_blank" rel="noreferrer">Download Modpack</a>
+      <a class="btn secondary" href="https://map.catkoi.net" target="_blank" rel="noreferrer">Open Map</a>
+      <a class="btn secondary" href="https://discord.gg/n8q7NY6vnS" target="_blank" rel="noreferrer">Join Discord</a>
+    </div>
+
+    <p class="subtitle">Server IP: <b>play.catkoi.net</b></p>
+  </div>
+
+  <div class="panel" id="status">
+    <h2>Live Status</h2>
+    <p class="subtitle" id="statusSub">Checking play.catkoi.net...</p>
+
+    <div class="status-grid">
+      <div class="stat">
+        <div class="label">Server</div>
+        <div class="value"><span id="dot" class="dot"></span><span id="serverStatus">Checking...</span></div>
+      </div>
+
+      <div class="stat">
+        <div class="label">Players</div>
+        <div class="value" id="playerCount">--</div>
+      </div>
+
+      <div class="stat">
+        <div class="label">Version</div>
+        <div class="value" id="version">--</div>
+      </div>
+
+      <div class="stat">
+        <div class="label">Whitelist</div>
+        <div class="value" id="whitelistCount">--</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="online-section">
+  <div class="panel">
+    <h2>Online Players</h2>
+    <p class="subtitle">Live player list from the server status API.</p>
+    <div id="online" class="online-list">Checking players...</div>
+  </div>
+</section>
+
+<section class="section" id="founders">
+  <h2>💖 Founders</h2>
+  <p class="subtitle">The heart of CatKoi SMP.</p>
+  <div id="foundersGrid" class="grid"></div>
+</section>
+
+<section class="section" id="members">
+  <h2>🌱 Members</h2>
+  <p class="subtitle">Sorted by online status first, then by hours played.</p>
+  <div class="note">
+    Deaths, hours played, and last seen automatically update when you upload <b>player-stats.json</b> beside this HTML file.
+  </div>
+  <div id="membersGrid" class="grid"></div>
+</section>
+
+<section class="section" id="map">
+  <div class="panel">
+    <h2>Live BlueMap</h2>
+    <p class="subtitle">Explore the world, builds, bases, and paths.</p>
+    <div class="map-wrap">
+      <iframe src="https://map.catkoi.net" title="CatKoi SMP BlueMap"></iframe>
+    </div>
+  </div>
+</section>
+
+<div class="footer">CatKoi SMP · comfy modded Minecraft with friends</div>
+
+<script>
+const SERVER = "play.catkoi.net";
+const STATS_JSON_PATH = "player-stats.json";
+
+const RELATIONSHIPS = {
+  "lakoi": "💖 with iamturtlee",
+  "iamturtlee": "💖 with Lakoi",
+  "potatosudi": "💞 with Jackcole194",
+  "jackcole194": "💞 with PoTaToSudi"
+};
+
+const FOUNDERS = [
+  { n:"Lakoi", r:"Founder", mbti:"INFP", food:"Takoyaki", deaths:0, hours:0, lastSeen:"Unknown", caption:"" },
+  { n:"iamturtlee", r:"Founder", mbti:"INTP", food:"Malatang", deaths:0, hours:0, lastSeen:"Unknown", caption:"the reason this server exists" }
+];
+
+const MEMBERS = [
+  {n:"PoTaToSudi", r:"Member", mbti:"INFP", food:"Tteokbokki", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"alegingerale", r:"Member", mbti:"INTP", food:"Bulgogi", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"General_Luke", r:"Member", mbti:"ENFP", food:"Chicken wings", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"Qrib", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"Zeyichun", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"Jackcole194", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"TheMintTea", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"Lutrasss", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"Nero_ysa", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"}
+];
+
+let allPlayers = [...FOUNDERS, ...MEMBERS];
+
+const copyBtn = document.getElementById("copyBtn");
+const dot = document.getElementById("dot");
+const serverStatus = document.getElementById("serverStatus");
+const statusSub = document.getElementById("statusSub");
+const playerCount = document.getElementById("playerCount");
+const version = document.getElementById("version");
+const whitelistCount = document.getElementById("whitelistCount");
+const online = document.getElementById("online");
+
+copyBtn.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(SERVER);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => copyBtn.textContent = "Copy Server IP", 1400);
+  } catch {
+    copyBtn.textContent = SERVER;
+  }
+});
+
+function skin(n) {
+  return `https://mc-heads.net/body/${encodeURIComponent(n)}/160`;
+}
+
+function head(n) {
+  return `https://mc-heads.net/avatar/${encodeURIComponent(n)}/64`;
+}
+
+function safeText(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+function getPlayerName(player) {
+  if (typeof player === "string") return player;
+  return player?.name || player?.username || player?.id || "Unknown";
+}
+
+function getBadge(name) {
+  return RELATIONSHIPS[name.toLowerCase()] || "";
+}
+
+function mergeStatsFromJson(stats) {
+  const statMap = new Map();
+
+  if (Array.isArray(stats.players)) {
+    stats.players.forEach(p => statMap.set(String(p.name).toLowerCase(), p));
+  } else {
+    Object.entries(stats).forEach(([name, value]) => {
+      if (value && typeof value === "object") statMap.set(name.toLowerCase(), { name, ...value });
+    });
+  }
+
+  allPlayers = allPlayers.map(player => {
+    const found = statMap.get(player.n.toLowerCase());
+    if (!found) return player;
+
+    return {
+      ...player,
+      deaths: Number(found.deaths ?? player.deaths ?? 0),
+      hours: Number(found.hours ?? player.hours ?? 0),
+      lastSeen: found.lastSeen || player.lastSeen || "Unknown"
+    };
+  });
+}
+
+async function loadPlayerStats() {
+  try {
+    const res = await fetch(`${STATS_JSON_PATH}?v=${Date.now()}`);
+    if (!res.ok) throw new Error("No stats file yet");
+    const stats = await res.json();
+    mergeStatsFromJson(stats);
+  } catch {
+    // No player-stats.json yet. Starter values will be used.
+  }
+}
+
+function sortedPlayers(list, onlineSet) {
+  return [...list].sort((a,b) => {
+    const aOnline = onlineSet.has(a.n.toLowerCase()) ? 1 : 0;
+    const bOnline = onlineSet.has(b.n.toLowerCase()) ? 1 : 0;
+
+    if (bOnline !== aOnline) return bOnline - aOnline;
+    return (b.hours || 0) - (a.hours || 0);
+  });
+}
+
+function renderGroup(list, containerId, onlineSet) {
+  const container = document.getElementById(containerId);
+  const sorted = sortedPlayers(list, onlineSet);
+
+  container.innerHTML = sorted.map(p => {
+    const key = p.n.toLowerCase();
+    const isOnline = onlineSet.has(key);
+    const badge = getBadge(p.n);
+    const lastSeen = isOnline ? "Online now" : (p.lastSeen || "Unknown");
+
+    return `
+      <div class="player" tabindex="0">
+        <div class="skin-wrap">
+          <img class="skin" src="${skin(p.n)}" alt="${safeText(p.n)} skin">
+        </div>
+
+        <div class="info">
+          <div>
+            <div class="name">${safeText(p.n)}</div>
+            <div class="role">${safeText(p.r)}</div>
+            ${p.caption ? `<div class="caption">${safeText(p.caption)}</div>` : ""}
+            ${badge ? `<div class="badge-line">${safeText(badge)}</div>` : ""}
+          </div>
+
+          <div class="tag ${isOnline ? "online-tag" : "offline-tag"}">
+            ${isOnline ? "Online" : "Offline"}
+          </div>
+        </div>
+
+        <div class="hover-card">
+          <b>${safeText(p.n)}</b>
+          ${badge ? `<div class="relationship">${safeText(badge)}</div>` : ""}
+          <div>MBTI: ${safeText(p.mbti || "Unknown yet")}</div>
+          <div>Favorite food: ${safeText(p.food || "Unknown yet")}</div>
+          <div>Deaths: ${safeText(p.deaths ?? 0)}</div>
+          <div>Hours played: ${safeText(p.hours ?? 0)}</div>
+          <div>Last seen: ${safeText(lastSeen)}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderOnline(names) {
+  if (!names.length) {
+    online.innerHTML = `<div class="online-player">Nobody online right now</div>`;
+    return;
+  }
+
+  online.innerHTML = names.map(n => {
+    return `
+      <div class="online-player">
+        <div class="player-left">
+          <img class="head" src="${head(n)}" alt="${safeText(n)} head">
+          <b>${safeText(n)}</b>
+        </div>
+        <span class="tag online-tag">Online</span>
+      </div>
+    `;
+  }).join("");
+}
+
+function splitPlayers() {
+  const founders = allPlayers.filter(p => p.r === "Founder");
+  const members = allPlayers.filter(p => p.r !== "Founder");
+  return { founders, members };
+}
+
+async function getStatus() {
+  try {
+    const response = await fetch(`https://api.mcsrvstat.us/3/${SERVER}`);
+    const data = await response.json();
+
+    if (!data || !data.online) throw new Error("Offline");
+
+    dot.classList.add("online");
+    serverStatus.textContent = "Online";
+    statusSub.textContent = `Server is live at ${data.hostname || SERVER}`;
+
+    const playerOnline = data.players?.online ?? 0;
+    const playerMax = data.players?.max ?? "?";
+
+    playerCount.textContent = `${playerOnline}/${playerMax}`;
+    version.textContent = data.version || "Unknown";
+
+    const rawList = Array.isArray(data.players?.list) ? data.players.list : [];
+    const names = rawList.map(getPlayerName);
+    const onlineSet = new Set(names.map(n => n.toLowerCase()));
+
+    whitelistCount.textContent =
+      `${allPlayers.filter(p => onlineSet.has(p.n.toLowerCase())).length}/${allPlayers.length}`;
+
+    const { founders, members } = splitPlayers();
+    renderOnline(names);
+    renderGroup(founders, "foundersGrid", onlineSet);
+    renderGroup(members, "membersGrid", onlineSet);
+  } catch {
+    dot.classList.remove("online");
+    serverStatus.textContent = "Offline";
+    statusSub.textContent = "The server is not responding right now.";
+    playerCount.textContent = "0";
+    version.textContent = "Unavailable";
+    whitelistCount.textContent = `0/${allPlayers.length}`;
+
+    const { founders, members } = splitPlayers();
+    renderOnline([]);
+    renderGroup(founders, "foundersGrid", new Set());
+    renderGroup(members, "membersGrid", new Set());
+  }
+}
+
+async function init() {
+  await loadPlayerStats();
+  const { founders, members } = splitPlayers();
+  renderGroup(founders, "foundersGrid", new Set());
+  renderGroup(members, "membersGrid", new Set());
+  await getStatus();
+  setInterval(async () => {
+    await loadPlayerStats();
+    await getStatus();
+  }, 30000);
+}
+
+init();
+</script>
+
+</body>
+</html>
