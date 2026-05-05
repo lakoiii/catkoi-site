@@ -490,9 +490,6 @@ iframe {
 <section class="section" id="members">
   <h2>🌱 Members</h2>
   <p class="subtitle">Sorted by online status first, then by hours played.</p>
-  <div class="note">
-    Deaths, hours played, and last seen automatically update when you upload <b>player-stats.json</b> beside this HTML file.
-  </div>
   <div id="membersGrid" class="grid"></div>
 </section>
 
@@ -516,7 +513,18 @@ const RELATIONSHIPS = {
   "lakoi": "💖 with iamturtlee",
   "iamturtlee": "💖 with Lakoi",
   "potatosudi": "💞 with Jackcole194",
-  "jackcole194": "💞 with PoTaToSudi"
+  "jackcole194": "💞 with PoTaToSudi",
+  "nero_ysa": "💙 with Qrib",
+  "qrib": "💙 with Nero_ysa"
+};
+
+const CUSTOM_INFO = {
+  "lakoi": { role: "Founder", mbti: "INFP", food: "Takoyaki" },
+  "iamturtlee": { role: "Founder", mbti: "INTP", food: "Malatang", caption: "the reason this server exists" },
+  "potatosudi": { role: "Member", mbti: "INFP", food: "Tteokbokki" },
+  "alegingerale": { role: "Member", mbti: "INTP", food: "Bulgogi" },
+  "general_luke": { role: "Member", mbti: "ENFP", food: "Chicken wings" },
+  "qrib": { role: "Member", mbti: "INTP", food: "Enoki beef rolls" }
 };
 
 const FOUNDERS = [
@@ -528,7 +536,7 @@ const MEMBERS = [
   {n:"PoTaToSudi", r:"Member", mbti:"INFP", food:"Tteokbokki", deaths:0, hours:0, lastSeen:"Unknown"},
   {n:"alegingerale", r:"Member", mbti:"INTP", food:"Bulgogi", deaths:0, hours:0, lastSeen:"Unknown"},
   {n:"General_Luke", r:"Member", mbti:"ENFP", food:"Chicken wings", deaths:0, hours:0, lastSeen:"Unknown"},
-  {n:"Qrib", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
+  {n:"Qrib", r:"Member", mbti:"INTP", food:"Enoki beef rolls", deaths:0, hours:0, lastSeen:"Unknown"},
   {n:"Zeyichun", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
   {n:"Jackcole194", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
   {n:"TheMintTea", r:"Member", mbti:"Unknown yet", food:"Unknown yet", deaths:0, hours:0, lastSeen:"Unknown"},
@@ -564,6 +572,20 @@ function skin(n) {
 function head(n) {
   return `https://mc-heads.net/avatar/${encodeURIComponent(n)}/64`;
 }
+function formatLastSeen(value) {
+  if (!value || value === "Unknown") return "Unknown";
+
+  const date = new Date(value);
+  if (isNaN(date)) return value;
+
+  return date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit"
+  });
+}
 
 function safeText(value) {
   return String(value)
@@ -581,28 +603,27 @@ function getBadge(name) {
   return RELATIONSHIPS[name.toLowerCase()] || "";
 }
 
+function normalizePlayer(raw) {
+  const name = raw.name || raw.n || "Unknown";
+  const key = name.toLowerCase();
+  const custom = CUSTOM_INFO[key] || {};
+
+  return {
+    n: name,
+    r: raw.role || raw.r || custom.role || "Member",
+    mbti: raw.mbti || custom.mbti || "Unknown yet",
+    food: raw.food || custom.food || "Unknown yet",
+    caption: raw.caption || custom.caption || "",
+    relationship: raw.relationship || getBadge(name),
+    deaths: Number(raw.deaths ?? 0),
+    hours: Number(raw.hours ?? 0),
+    lastSeen: raw.lastSeen || "Unknown"
+  };
+}
+
 function mergeStatsFromJson(stats) {
-  const statMap = new Map();
-
-  if (Array.isArray(stats.players)) {
-    stats.players.forEach(p => statMap.set(String(p.name).toLowerCase(), p));
-  } else {
-    Object.entries(stats).forEach(([name, value]) => {
-      if (value && typeof value === "object") statMap.set(name.toLowerCase(), { name, ...value });
-    });
-  }
-
-  allPlayers = allPlayers.map(player => {
-    const found = statMap.get(player.n.toLowerCase());
-    if (!found) return player;
-
-    return {
-      ...player,
-      deaths: Number(found.deaths ?? player.deaths ?? 0),
-      hours: Number(found.hours ?? player.hours ?? 0),
-      lastSeen: found.lastSeen || player.lastSeen || "Unknown"
-    };
-  });
+  if (!Array.isArray(stats.players) || !stats.players.length) return;
+  allPlayers = stats.players.map(normalizePlayer);
 }
 
 async function loadPlayerStats() {
@@ -633,8 +654,8 @@ function renderGroup(list, containerId, onlineSet) {
   container.innerHTML = sorted.map(p => {
     const key = p.n.toLowerCase();
     const isOnline = onlineSet.has(key);
-    const badge = getBadge(p.n);
-    const lastSeen = isOnline ? "Online now" : (p.lastSeen || "Unknown");
+    const badge = p.relationship || getBadge(p.n);
+    const lastSeen = isOnline ? "Online now" : formatLastSeen(p.lastSeen);
 
     return `
       <div class="player" tabindex="0">
@@ -748,7 +769,7 @@ async function init() {
     await getStatus();
   }, 30000);
 }
-
+setInterval(() => location.reload(), 300000);
 init();
 </script>
 
