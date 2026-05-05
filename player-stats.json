@@ -2,6 +2,7 @@
   "players": [
     {
       "name": "MrkL2",
+      "uuid": "87282cbe-4100-4a0a-b2d7-a542ad832acc",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
@@ -13,6 +14,7 @@
     },
     {
       "name": "alegingerale",
+      "uuid": "fc5511a4-2da2-4c88-84e7-2c0c28d0b660",
       "role": "Member",
       "mbti": "INTP",
       "food": "Bulgogi",
@@ -24,6 +26,7 @@
     },
     {
       "name": "PoTaToSudi",
+      "uuid": "f0f835a4-e81c-4494-84eb-beae9f7eada2",
       "role": "Member",
       "mbti": "INFP",
       "food": "Tteokbokki",
@@ -35,17 +38,19 @@
     },
     {
       "name": "Qrib",
+      "uuid": "2daf2b52-ae0b-4155-9edb-5837712b8a5b",
       "role": "Member",
       "mbti": "INTP",
       "food": "Enoki beef rolls",
       "caption": "",
       "relationship": "\ud83d\udc99 with Nero_ysa",
       "deaths": 7,
-      "hours": 11.7,
-      "lastSeen": "2026-05-05T09:29:46.597759+00:00"
+      "hours": 12.0,
+      "lastSeen": "2026-05-05T09:49:46.599571+00:00"
     },
     {
       "name": "Zeyichun",
+      "uuid": "2f80597a-f474-4084-aabd-818e1045ac9a",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
@@ -57,6 +62,7 @@
     },
     {
       "name": "iamturtlee",
+      "uuid": "d0dedf06-7fc3-481b-b43a-749c71a7df76",
       "role": "Founder",
       "mbti": "INTP",
       "food": "Malatang",
@@ -68,6 +74,7 @@
     },
     {
       "name": "Lakoi",
+      "uuid": "44f628b3-57e5-450e-b724-24b18a4b35e1",
       "role": "Founder",
       "mbti": "INFP",
       "food": "Takoyaki",
@@ -79,6 +86,7 @@
     },
     {
       "name": "Jackcole194",
+      "uuid": "a110c926-85a0-43f9-9656-9a5971a955bb",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
@@ -90,6 +98,7 @@
     },
     {
       "name": "TheMintTea",
+      "uuid": "5be3831c-fb77-49c2-b5a9-bc1c34f8907c",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
@@ -101,6 +110,7 @@
     },
     {
       "name": "Lutrasss",
+      "uuid": "15623721-80f0-4a5a-a4ec-339f93335ef0",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
@@ -112,6 +122,7 @@
     },
     {
       "name": "General_Luke",
+      "uuid": "1b019e11-ee4c-4838-95a8-65d0e0e6f837",
       "role": "Member",
       "mbti": "ENFP",
       "food": "Chicken wings",
@@ -123,6 +134,7 @@
     },
     {
       "name": "Nero_ysa",
+      "uuid": "1f1e8e76-9f23-41f5-bc14-5be9b80c29ea",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
