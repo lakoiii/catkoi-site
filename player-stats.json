@@ -8,9 +8,9 @@
       "food": "Unknown yet",
       "caption": "",
       "relationship": "",
-      "deaths": 3,
-      "hours": 0.0,
-      "lastSeen": "2026-05-05T02:54:53.127918+00:00"
+      "deaths": 4,
+      "hours": 0.2,
+      "lastSeen": "2026-05-06T02:51:38.763295+00:00"
     },
     {
       "name": "alegingerale",
@@ -44,9 +44,9 @@
       "food": "Enoki beef rolls",
       "caption": "",
       "relationship": "\ud83d\udc99 with Nero_ysa",
-      "deaths": 7,
-      "hours": 12.2,
-      "lastSeen": "2026-05-05T09:59:46.598830+00:00"
+      "deaths": 13,
+      "hours": 13.9,
+      "lastSeen": "2026-05-06T01:48:25.959634+00:00"
     },
     {
       "name": "Zeyichun",
@@ -68,9 +68,9 @@
       "food": "Malatang",
       "caption": "the reason this server exists",
       "relationship": "\ud83d\udc96 with Lakoi",
-      "deaths": 78,
-      "hours": 43.7,
-      "lastSeen": "2026-05-05T08:06:43.684662+00:00"
+      "deaths": 79,
+      "hours": 46.7,
+      "lastSeen": "2026-05-06T05:02:48.281121+00:00"
     },
     {
       "name": "Lakoi",
@@ -81,20 +81,8 @@
       "caption": "",
       "relationship": "\ud83d\udc96 with iamturtlee",
       "deaths": 20,
-      "hours": 68.5,
-      "lastSeen": "2026-05-05T09:07:56.531024+00:00"
-    },
-    {
-      "name": "Jackcole194",
-      "uuid": "a110c926-85a0-43f9-9656-9a5971a955bb",
-      "role": "Member",
-      "mbti": "INTP",
-      "food": "Unknown yet",
-      "caption": "",
-      "relationship": "\ud83d\udc9e with PoTaToSudi",
-      "deaths": 273,
-      "hours": 67.5,
-      "lastSeen": "2026-05-05T06:56:24.254096+00:00"
+      "hours": 70.6,
+      "lastSeen": "2026-05-06T03:54:07.141334+00:00"
     },
     {
       "name": "TheMintTea",
@@ -133,6 +121,30 @@
       "lastSeen": "2026-05-03T10:39:13.602971+00:00"
     },
     {
+      "name": "x6vy",
+      "uuid": "95587d93-ed13-45f6-b04d-d63f58a5751d",
+      "role": "Member",
+      "mbti": "Unknown yet",
+      "food": "Unknown yet",
+      "caption": "",
+      "relationship": "",
+      "deaths": 1,
+      "hours": 6.9,
+      "lastSeen": "2026-04-25T06:12:25.128314+00:00"
+    },
+    {
+      "name": "Jackcole194",
+      "uuid": "a110c926-85a0-43f9-9656-9a5971a955bb",
+      "role": "Member",
+      "mbti": "INTP",
+      "food": "Unknown yet",
+      "caption": "",
+      "relationship": "\ud83d\udc9e with PoTaToSudi",
+      "deaths": 295,
+      "hours": 70.6,
+      "lastSeen": "2026-05-06T04:40:15.187371+00:00"
+    },
+    {
       "name": "Nero_ysa",
       "uuid": "1f1e8e76-9f23-41f5-bc14-5be9b80c29ea",
       "role": "Member",
@@ -141,8 +153,8 @@
       "caption": "",
       "relationship": "\ud83d\udc99 with Qrib",
       "deaths": 6,
-      "hours": 4.9,
-      "lastSeen": "2026-05-04T17:42:51.895371+00:00"
+      "hours": 5.9,
+      "lastSeen": "2026-05-05T11:56:14.803663+00:00"
     }
   ]
 }
