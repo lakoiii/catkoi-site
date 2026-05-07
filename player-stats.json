@@ -21,8 +21,8 @@
       "caption": "",
       "relationship": "",
       "deaths": 27,
-      "hours": 15.7,
-      "lastSeen": "2026-05-07T19:58:13.192209+00:00"
+      "hours": 15.8,
+      "lastSeen": "2026-05-07T23:46:45.886482+00:00"
     },
     {
       "name": "PoTaToSudi",
@@ -135,6 +135,18 @@
     {
       "name": "pvsheeen",
       "uuid": "a1abb0dd-8791-459a-a6db-29cfda1422a7",
+      "role": "Member",
+      "mbti": "Unknown yet",
+      "food": "Unknown yet",
+      "caption": "",
+      "relationship": "",
+      "deaths": 0,
+      "hours": 0,
+      "lastSeen": "Unknown"
+    },
+    {
+      "name": "JustLayeredAsh",
+      "uuid": "68c32a02-59a3-4fb6-b219-ef1aca98f6a4",
       "role": "Member",
       "mbti": "Unknown yet",
       "food": "Unknown yet",
