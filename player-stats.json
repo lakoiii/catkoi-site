@@ -109,6 +109,18 @@
       "lastSeen": "2026-05-01T03:49:36.192328+00:00"
     },
     {
+      "name": "nebii_",
+      "uuid": "d0b1c13a-7007-4cfd-8392-b540069636f9",
+      "role": "Member",
+      "mbti": "Unknown yet",
+      "food": "Unknown yet",
+      "caption": "",
+      "relationship": "",
+      "deaths": 0,
+      "hours": 0,
+      "lastSeen": "Unknown"
+    },
+    {
       "name": "General_Luke",
       "uuid": "1b019e11-ee4c-4838-95a8-65d0e0e6f837",
       "role": "Member",
@@ -179,6 +191,18 @@
       "deaths": 323,
       "hours": 76.8,
       "lastSeen": "2026-05-11T18:51:53.763183+00:00"
+    },
+    {
+      "name": "Pink2k",
+      "uuid": "af1988c0-961e-4dde-8ee5-7751d7fe4b3c",
+      "role": "Member",
+      "mbti": "Unknown yet",
+      "food": "Unknown yet",
+      "caption": "",
+      "relationship": "",
+      "deaths": 0,
+      "hours": 0,
+      "lastSeen": "Unknown"
     },
     {
       "name": "Nero_ysa",
